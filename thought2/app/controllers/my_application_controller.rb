@@ -11,13 +11,9 @@ class MyApplicationController < UIViewController
   end
 
   def tableView(tableView, cellForRowAtIndexPath:indexPath)
-    cell = tableView.dequeueReusableCellWithIdentifier(cell_identifier)
-
-    if not cell
-      cell = UITableViewCell.alloc.initWithStyle UITableViewCellStyleDefault, reuseIdentifier:cell_identifier
-      cell.autorelease
-    end
-
+    cell = tableView.dequeueReusableCellWithIdentifier(cell_identifier) ||
+          UITableViewCell.alloc.initWithStyle( UITableViewCellStyleDefault,
+                              reuseIdentifier: cell_identifier)
     cell.textLabel.text = "#{@data[indexPath.row][:first]} #{@data[indexPath.row][:last]}"
 
     return cell
