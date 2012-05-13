@@ -6,13 +6,13 @@ end
 class MyApplicationController < UIViewController
 
   def viewDidLoad
-    font = UIFont.fontWithName('DS-Digital', size:20)
+    font = UIFont.fontWithName('Inconsolata', size:20)
     color = rgba_color(255, 255, 255)
 
     @label = UILabel.new
     @label.font = font
     @label.textColor = color
-    @label.text = 'DS-Digital font'
+    @label.text = 'Inconsolata font'
     @label.frame = [[0, 0], [self.width, self.height]]
     @label.lineBreakMode = UILineBreakModeWordWrap
     @label.numberOfLines = 0
@@ -79,7 +79,7 @@ class MyApplicationController < UIViewController
   end
 
   def resetLabel
-    @label.text = 'DS-Digital font'
+    @label.text = 'Inconsolata font'
     @label.sizeToFit
   end
 
