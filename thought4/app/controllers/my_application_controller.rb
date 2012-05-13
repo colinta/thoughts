@@ -68,7 +68,6 @@ class MyApplicationController < UIViewController
       button_offset = CGPointMake(self.height, self.width)
     end
 
-    puts "button_offset: #{button_offset}, button_size: #{button_size}"
     @button.frame = [[button_offset.x - self.margin_right - button_size.width, button_offset.y - self.margin_bottom - button_size.height], button_size]
 
     @label.text += ", #{append}"
