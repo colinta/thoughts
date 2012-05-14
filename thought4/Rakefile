@@ -3,7 +3,7 @@ require 'motion/project'
 
 Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
-  app.icons = ['icon_iphone.png', 'icon_ipad.png', 'icon_retina.png', 'icon_ipad_retina.png']
+  app.icons = ['icon_iphone.png', 'icon_ipad.png', 'icon_iphone_retina.png', 'icon_ipad_retina.png']
   app.name = 'thought4'
   app.prerendered_icon = true
   app.identifier = 'com.colinta.thought4'
