@@ -115,4 +115,8 @@ class MyApplicationController < UIViewController
     end
   end
 
+  def tableView(tableView, didSelectRowAtIndexPath:indexPath)
+    tableView.deselectRowAtIndexPath(indexPath, animated:true)
+  end
+
 end
