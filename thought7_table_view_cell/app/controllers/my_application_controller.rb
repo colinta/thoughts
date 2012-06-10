@@ -6,7 +6,9 @@ LOGO2_TAG = 5
 
 class MyApplicationController < UIViewController
 
-  def viewDidLoad
+  stylesheet  :cell_sheet
+
+  def layoutDidLoad
     @data = [
       { icon: 'niftywow',
         project: 'NiftyWow',
@@ -29,24 +31,8 @@ class MyApplicationController < UIViewController
     50
   end
 
-  def icon_frame
-    [[5, 5], [40, 40]]
-  end
-
-  def title_frame
-    [[50, 0], [245, 20]]
-  end
-
   def description_frame
     [[50, 20], [245, 30]]
-  end
-
-  def logo1_frame
-    [[295,  5], [20, 20]]
-  end
-
-  def logo2_frame
-    [[295, 25], [20, 20]]
   end
 
   def tableView(tableView, cellForRowAtIndexPath:indexPath)
@@ -56,31 +42,13 @@ class MyApplicationController < UIViewController
       cell = UITableViewCell.alloc.initWithStyle( UITableViewCellStyleDefault,
                           reuseIdentifier: cell_identifier)
 
-      icon_image_view = UIImageView.new
-      icon_image_view.frame = icon_frame
-      icon_image_view.tag = ICON_TAG
-      cell.contentView.addSubview(icon_image_view)
-
-      title_view = UILabel.alloc.initWithFrame(title_frame)
-      title_view.font = UIFont.systemFontOfSize(17)
-      title_view.tag = TITLE_TAG
-      cell.contentView.addSubview(title_view)
-
-      description_view = UILabel.alloc.initWithFrame(description_frame)
-      description_view.font = UIFont.systemFontOfSize(12)
-      description_view.textColor = UIColor.grayColor
-      description_view.lineBreakMode = UILineBreakModeWordWrap
-      description_view.numberOfLines = 0
-      description_view.tag = DESCRIPTION_TAG
-      cell.contentView.addSubview(description_view)
-
-      logo1_view = UIImageView.alloc.initWithFrame(logo1_frame)
-      logo1_view.tag = LOGO1_TAG
-      cell.contentView.addSubview(logo1_view)
-
-      logo2_view = UIImageView.alloc.initWithFrame(logo2_frame)
-      logo2_view.tag = LOGO2_TAG
-      cell.contentView.addSubview(logo2_view)
+      layout(cell, :cell) do
+        icon_image_view = subview(UIImageView, :icon, tag: ICON_TAG)
+        title_view = subview(UILabel, :title, tag: TITLE_TAG, font: UIFont.systemFontOfSize(17))
+        description_view = subview(UILabel, :description, tag: DESCRIPTION_TAG, font: UIFont.systemFontOfSize(12))
+        logo1_view = subview(UIImageView, :logo1, tag: LOGO1_TAG)
+        logo2_view = subview(UIImageView, :logo2, tag: LOGO2_TAG)
+      end
     else  # the cell *did* exist
       icon_image_view = cell.viewWithTag(ICON_TAG)
       title_view = cell.viewWithTag(TITLE_TAG)
