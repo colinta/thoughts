@@ -20,6 +20,11 @@ class MyApplicationController < UIViewController
         description: 'Much cooler than lame stuff.',
         logos: ['apple', 'twitter']
         },
+      { icon: 'woahsupercool',
+        project: 'WoahSuperCool',
+        description: 'No beer and no TV make Colin something something. No beer and no TV make Colin something something. No beer and no TV make Colin something something.',
+        logos: ['twitter', 'github']
+        },
     ]
     @table = UITableView.alloc.initWithFrame [[0, 0], [320, 480]], style: UITableViewStylePlain
     @table.dataSource = self
@@ -64,6 +69,11 @@ class MyApplicationController < UIViewController
     description_view.text = project[:description]
     description_view.frame = description_frame
     description_view.sizeToFit
+    # if the height is too large, it will exceed the height I want it to be, so
+    # I will manually just cut it off.  comment these out to SEE WHAT HAPPENS :-|
+    frame = description_view.frame
+    frame.size.height = description_frame[1][1]
+    description_view.frame = frame
     logo1_view.image = UIImage.imageNamed(project[:logos][0])
     logo2_view.image = UIImage.imageNamed(project[:logos][1])
 
