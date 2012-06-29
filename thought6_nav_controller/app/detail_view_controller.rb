@@ -30,7 +30,7 @@ class DetailViewController < UIViewController
     @last.minimumFontSize = 17
     @last.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter
     @last.adjustsFontSizeToFitWidth = true
-    @last.placeholder = "First Name"
+    @last.placeholder = "Last Name"
     @last.delegate = self
     self.view.addSubview(@last)
   end
