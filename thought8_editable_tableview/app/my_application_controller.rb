@@ -11,7 +11,7 @@ class MyApplicationController < UIViewController
 
   def load_players
     if exists(plist)
-      @players = NSArray.initWithContentsOfFile(plist)
+      @players = NSArray.alloc.initWithContentsOfFile(plist)
     else
       @players = [
         {'first' => 'firsty', 'last' => 'McLasty'},
