@@ -6,17 +6,20 @@ class MyApplicationController < UIViewController
   end
 
   def persist
+    puts "writing to #{plist.inspect}: #{@players.inspect}"
     @players.writeToFile(plist, atomically:true)
   end
 
   def load_players
     if exists(plist)
       @players = NSArray.alloc.initWithContentsOfFile(plist)
+      puts "loaded players from #{plist.inspect}: #{@players.inspect}"
     else
       @players = [
         {'first' => 'firsty', 'last' => 'McLasty'},
         {'first' => 'humphrey', 'last' => 'bogart'},
       ]
+      puts "writing initial data to #{plist.inspect}: #{@players.inspect}"
       self.persist
     end
   end
@@ -151,9 +154,15 @@ class MyApplicationController < UIViewController
 
   def tableView(tableView, moveRowAtIndexPath:from_index_path, toIndexPath:to_index_path)
     puts "tableView(#{tableView}, moveRowAtIndexPath:#{from_index_path}, toIndexPath:#{to_index_path})"
-    move = @players.delete_at(from_index_path.row)
-    if move
-      @players.insert(to_index_path.row, move)
+    puts "players: #{@players}"
+    puts "player: #{@players[from_index_path.row]}"
+
+    @move = @players[from_index_path.row]
+    @players.delete_at(from_index_path.row)
+    puts "move: #{@move} from: #{from_index_path.row} to dest: #{to_index_path.row}"
+    if @move
+      @players.insert(to_index_path.row, @move)
+      puts "moved, players: #{@players}"
       self.playersChanged
     end
   end
