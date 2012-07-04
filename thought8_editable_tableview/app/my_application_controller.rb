@@ -110,10 +110,12 @@ class MyApplicationController < UIViewController
     end
   end
 
-  def playersChanged
+  def playersChanged(reload=True)
     puts "playersChanged"
     self.persist
-    @table_view.reloadData
+    if reload
+      @table_view.reloadData
+    end
   end
 
   def addPlayer
@@ -147,7 +149,7 @@ class MyApplicationController < UIViewController
       editing_style = "UITableViewCellEditingStyleDelete"
       @players.delete_at(index_path.row)
       @table_view.deleteRowsAtIndexPaths([index_path], withRowAnimation:UITableViewRowAnimationAutomatic)
-      self.playersChanged
+      self.playersChanged(false)
     end
     puts "tableView(#{tableView}, commitEditingStyle:#{editing_style}, forRowAtIndexPath:#{index_path})"
   end
@@ -163,7 +165,7 @@ class MyApplicationController < UIViewController
     if @move
       @players.insert(to_index_path.row, @move)
       puts "moved, players: #{@players}"
-      self.playersChanged
+      self.playersChanged(false)
     end
   end
 
