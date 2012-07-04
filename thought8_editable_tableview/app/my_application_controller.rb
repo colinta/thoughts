@@ -14,9 +14,10 @@ class MyApplicationController < UIViewController
       @players = NSArray.initWithContentsOfFile(plist)
     else
       @players = [
-        {first: 'firsty', last: 'McLasty'},
-        {first: 'humphrey', last: 'bogart'},
+        {'first' => 'firsty', 'last' => 'McLasty'},
+        {'first' => 'humphrey', 'last' => 'bogart'},
       ]
+      self.persist
     end
   end
 
@@ -57,7 +58,7 @@ class MyApplicationController < UIViewController
     cell = tableView.dequeueReusableCellWithIdentifier(cell_identifier) ||
           UITableViewCell.alloc.initWithStyle( UITableViewCellStyleDefault,
                               reuseIdentifier: cell_identifier)
-    cell.textLabel.text = "#{@players[index_path.row][:first]} #{@players[index_path.row][:last]}"
+    cell.textLabel.text = "#{@players[index_path.row]['first']} #{@players[index_path.row]['last']}"
 
     return cell
   end

@@ -40,8 +40,8 @@ class EditPlayerController < UIViewController
 
     if first_name.length + last_name.length > 0
       {
-        first: first_name,
-        last: last_name,
+        'first' => first_name,
+        'last' => last_name,
       }
     else
       nil
@@ -59,9 +59,9 @@ class EditPlayerController < UIViewController
       self.last_field.text = ""
     else
       # assign values from player
-      self.title = "#{@player[:first]} #{@player[:last]}"
-      self.first_field.text = @player[:first]
-      self.last_field.text = @player[:last]
+      self.title = "#{@player['first']} #{@player['last']}"
+      self.first_field.text = @player['first']
+      self.last_field.text = @player['last']
     end
   end
 
@@ -99,9 +99,9 @@ class EditPlayerController < UIViewController
 
     if @player
       if text_field == self.first_field
-        @player[:first] = text_field.text
+        @player['first'] = text_field.text
       else
-        @player[:last] = text_field.text
+        @player['last'] = text_field.text
       end
       NSNotificationCenter.defaultCenter.postNotificationName("players changed", object:self)
     end
