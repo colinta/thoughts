@@ -23,7 +23,7 @@ class Kernel
   end
 
   def exists(filename)
-    NSFileManager.defaultFileManager.fileExistsAtPath(filename)
+    NSFileManager.defaultManager.fileExistsAtPath(filename)
   end
 
 end
