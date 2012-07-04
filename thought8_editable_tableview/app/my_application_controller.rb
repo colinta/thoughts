@@ -110,7 +110,7 @@ class MyApplicationController < UIViewController
     end
   end
 
-  def playersChanged(reload=True)
+  def playersChanged(reload=true)
     puts "playersChanged"
     self.persist
     if reload
