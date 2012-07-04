@@ -33,13 +33,28 @@ class EditPlayerController < UIViewController
     self.view.addSubview(self.last_field)
   end
 
+  # the "Add" view will use this to get the newly created player info
+  def player
+    first_name = self.first_field.text.to_s
+    last_name = self.last_field.text.to_s
+
+    if first_name.length or last_name.length
+      {
+        first: first_name,
+        last: last_name,
+      }
+    else
+      nil
+    end
+  end
+
   def player=(player)
     puts "player=#{player}"
     @player = player
     # we will be using this view to *add* a player, in which case player will be nil.
     if not player
       # assign empty or default values
-      self.title = ""
+      self.title = "New Player"
       self.first_field.text = ""
       self.last_field.text = ""
     else
@@ -47,6 +62,18 @@ class EditPlayerController < UIViewController
       self.title = "#{@player[:first]} #{@player[:last]}"
       self.first_field.text = @player[:first]
       self.last_field.text = @player[:last]
+    end
+  end
+
+  def navigationController(nav_ctlr, willShowViewController:ctlr, animated:is_animated)
+    puts "navigationController(#{nav_ctlr.inspect}, willShowViewController:#{ctlr.inspect}, animated:#{is_animated.inspect})"
+    if ctlr != self
+      if self.first_field.isFirstResponder
+        self.first_field.resignFirstResponder
+      elsif self.last_field.isFirstResponder
+        self.last_field.resignFirstResponder
+      end
+      nav_ctlr.delegate = nil
     end
   end
 
@@ -59,14 +86,32 @@ class EditPlayerController < UIViewController
     end
   end
 
+  def textFieldDidBeginEditing(text_field)
+    NSNotificationCenter.defaultCenter.addObserver(self,
+        selector: "textFieldChanged",
+        name: UITextFieldTextDidChangeNotification,
+        object: nil)
+  end
+
   def textFieldDidEndEditing(text_field)
     puts "textFieldDidEndEditing(#{text_field})"
-    if text_field == self.first_field
-      @player[:first] = text_field.text
-    else
-      @player[:last] = text_field.text
+    NSNotificationCenter.defaultCenter.removeObserver(self)
+
+    if @player
+      if text_field == self.first_field
+        @player[:first] = text_field.text
+      else
+        @player[:last] = text_field.text
+      end
+      NSNotificationCenter.defaultCenter.postNotificationName("players changed", object:self)
     end
-    NSNotificationCenter.defaultCenter.postNotificationName("players changed", object:self)
+  end
+
+  def textFieldChanged
+    if not @player
+      # enable or disable the button, depending on whether one of the text fields has text
+      self.navigationItem.rightBarButtonItem.enabled = (self.first_field.text.length + self.last_field.text.length > 0)
+    end
   end
 
 end
