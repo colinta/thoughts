@@ -13,3 +13,17 @@ class AppDelegate
   end
 
 end
+
+
+class Kernel
+
+  def document(filename)
+    @docs ||= NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true)[0]
+    @docs.stringByAppendingPathComponent(filename)
+  end
+
+  def exists(filename)
+    NSFileManager.defaultFileManager.fileExistsAtPath(filename)
+  end
+
+end

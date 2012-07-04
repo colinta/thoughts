@@ -1,13 +1,30 @@
+
 class MyApplicationController < UIViewController
+
+  def plist
+    document('editable_tableview.plist')
+  end
+
+  def persist
+    @players.writeToFile(plist, atomically:true)
+  end
+
+  def load_players
+    if exists(plist)
+      @players = NSArray.initWithContentsOfFile(plist)
+    else
+      @players = [
+        {first: 'firsty', last: 'McLasty'},
+        {first: 'humphrey', last: 'bogart'},
+      ]
+    end
+  end
 
   def viewDidLoad
     puts "viewDidLoad"
     self.title = "Editable Tableview"
 
-    @players = [
-      {first: 'firsty', last: 'McLasty'},
-      {first: 'humphrey', last: 'bogart'},
-    ]
+    self.load_players
 
     @table_view = UITableView.alloc.initWithFrame [[0, 0], [320, 480]], style: UITableViewStylePlain
     @table_view.dataSource = self
@@ -91,6 +108,7 @@ class MyApplicationController < UIViewController
 
   def playersChanged
     puts "playersChanged"
+    self.persist
     @table_view.reloadData
   end
 
@@ -115,7 +133,7 @@ class MyApplicationController < UIViewController
     puts "added: #{self.add_player_controller.player}"
     if self.add_player_controller.player
       @players.push(self.add_player_controller.player)
-      @table_view.reloadData
+      self.playersChanged
     end
     self.dismissViewControllerAnimated(true, completion:nil)
   end
@@ -125,6 +143,7 @@ class MyApplicationController < UIViewController
       editing_style = "UITableViewCellEditingStyleDelete"
       @players.delete_at(index_path.row)
       @table_view.deleteRowsAtIndexPaths([index_path], withRowAnimation:UITableViewRowAnimationAutomatic)
+      self.playersChanged
     end
     puts "tableView(#{tableView}, commitEditingStyle:#{editing_style}, forRowAtIndexPath:#{index_path})"
   end
@@ -134,6 +153,7 @@ class MyApplicationController < UIViewController
     move = @players.delete_at(from_index_path.row)
     if move
       @players.insert(to_index_path.row, move)
+      self.playersChanged
     end
   end
 
