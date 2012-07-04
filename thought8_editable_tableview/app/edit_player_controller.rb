@@ -38,7 +38,7 @@ class EditPlayerController < UIViewController
     first_name = self.first_field.text.to_s
     last_name = self.last_field.text.to_s
 
-    if first_name.length or last_name.length
+    if first_name.length + last_name.length > 0
       {
         first: first_name,
         last: last_name,
