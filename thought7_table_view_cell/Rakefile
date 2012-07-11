@@ -1,13 +1,10 @@
 $:.unshift("/Library/RubyMotion/lib")
 require 'motion/project'
-
-
-dirs = ['vendor/sugarcube/lib', 'vendor/teacup/lib', 'app']
+require 'bundler'
+Bundler.require
 
 
 Motion::Project::App.setup do |app|
-  # Use `rake config' to see complete project settings.
-  app.files = dirs.map{|d| Dir.glob(File.join(app.project_dir, "#{d}/**/*.rb")) }.flatten
   app.name = 'TableViewCell'
   app.files_dependencies 'app/app_delegate.rb' => 'app/styles/cell_style.rb'
 end

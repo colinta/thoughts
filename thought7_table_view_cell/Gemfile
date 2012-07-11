@@ -1,0 +1,8 @@
+source 'https://rubygems.org'
+
+gem 'rake'
+gem 'sugarcube', :git => 'https://github.com/fusionbox/sugarcube.git'
+gem 'teacup', :git => 'https://github.com/colinta/teacup.git', :branch => "gem"
+
+
+# gemspec

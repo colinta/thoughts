@@ -1,0 +1,27 @@
+GIT
+  remote: https://github.com/colinta/teacup.git
+  revision: 160245b740a5f1aa445252576d1a8837420c12c3
+  branch: gem
+  specs:
+    teacup (0.2.5)
+      rake
+
+GIT
+  remote: https://github.com/fusionbox/sugarcube.git
+  revision: d96f5d8074d23d13786f28d4058ceccab67808b6
+  specs:
+    sugarcube (0.1.6)
+      rake
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rake (0.9.2.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  rake
+  sugarcube!
+  teacup!
