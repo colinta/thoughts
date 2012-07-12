@@ -6,26 +6,22 @@ class MyApplicationController < UIViewController
   end
 
   def persist
-    puts "writing to #{plist.inspect}: #{@players.inspect}"
     @players.writeToFile(plist, atomically:true)
   end
 
   def load_players
     if exists(plist)
       @players = NSArray.alloc.initWithContentsOfFile(plist)
-      puts "loaded players from #{plist.inspect}: #{@players.inspect}"
     else
       @players = [
         {'first' => 'firsty', 'last' => 'McLasty'},
         {'first' => 'humphrey', 'last' => 'bogart'},
       ]
-      puts "writing initial data to #{plist.inspect}: #{@players.inspect}"
       self.persist
     end
   end
 
   def viewDidLoad
-    puts "viewDidLoad"
     self.title = "Editable Tableview"
 
     self.load_players
@@ -57,7 +53,6 @@ class MyApplicationController < UIViewController
   end
 
   def tableView(tableView, cellForRowAtIndexPath:index_path)
-    puts "tableView(#{tableView}, cellForRowAtIndexPath:#{index_path})"
     cell = tableView.dequeueReusableCellWithIdentifier(cell_identifier) ||
           UITableViewCell.alloc.initWithStyle( UITableViewCellStyleDefault,
                               reuseIdentifier: cell_identifier)
@@ -71,7 +66,6 @@ class MyApplicationController < UIViewController
   end
 
   def tableView(tableView, numberOfRowsInSection: section)
-    puts "tableView(#{tableView}, numberOfRowsInSection: #{section})"
     case section
     when 0
       @players.length
@@ -81,7 +75,6 @@ class MyApplicationController < UIViewController
   end
 
   def tableView(tableView, didSelectRowAtIndexPath:index_path)
-    puts "tableView(#{tableView}, didSelectRowAtIndexPath:#{index_path})"
     tableView.deselectRowAtIndexPath(index_path, animated:true)
 
     self.edit_player_controller.player = @players[index_path.row]
@@ -111,7 +104,6 @@ class MyApplicationController < UIViewController
   end
 
   def playersChanged(reload=true)
-    puts "playersChanged"
     self.persist
     if reload
       @table_view.reloadData
@@ -119,7 +111,6 @@ class MyApplicationController < UIViewController
   end
 
   def addPlayer
-    # assign the player (resets the inputs)
     self.add_player_controller.player = nil
 
     # create and customize the navigation controller.  This gives us an easy
@@ -136,7 +127,6 @@ class MyApplicationController < UIViewController
   end
 
   def doneAddPlayer
-    puts "added: #{self.add_player_controller.player}"
     if self.add_player_controller.player
       @players.push(self.add_player_controller.player)
       self.playersChanged
@@ -151,26 +141,19 @@ class MyApplicationController < UIViewController
       @table_view.deleteRowsAtIndexPaths([index_path], withRowAnimation:UITableViewRowAnimationAutomatic)
       self.playersChanged(false)
     end
-    puts "tableView(#{tableView}, commitEditingStyle:#{editing_style}, forRowAtIndexPath:#{index_path})"
   end
 
   def tableView(tableView, moveRowAtIndexPath:from_index_path, toIndexPath:to_index_path)
-    puts "tableView(#{tableView}, moveRowAtIndexPath:#{from_index_path}, toIndexPath:#{to_index_path})"
-    puts "players: #{@players}"
-    puts "player: #{@players[from_index_path.row]}"
 
     @move = @players[from_index_path.row]
     @players.delete_at(from_index_path.row)
-    puts "move: #{@move} from: #{from_index_path.row} to dest: #{to_index_path.row}"
     if @move
       @players.insert(to_index_path.row, @move)
-      puts "moved, players: #{@players}"
       self.playersChanged(false)
     end
   end
 
   def setEditing(is_editing, animated:is_animated)
-    puts "setEditing(#{is_editing}, animated:#{is_animated})"
     @table_view.setEditing(is_editing, animated:is_animated)
     super
   end
