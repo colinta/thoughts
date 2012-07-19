@@ -24,15 +24,3 @@ class Kernel
   end
 
 end
-
-
-class UIView
-
-  def all
-    [
-      [0, 0],
-      [self.frame.size.width, self.frame.size.height]
-    ]
-  end
-
-end

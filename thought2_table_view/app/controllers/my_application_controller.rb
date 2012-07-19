@@ -5,7 +5,7 @@ class MyApplicationController < UIViewController
       {first: 'firsty', last: 'McLasty'},
       {first: 'humphrey', last: 'bogart'},
     ]
-    @table = UITableView.alloc.initWithFrame view.all, style: UITableViewStylePlain
+    @table = UITableView.alloc.initWithFrame(view.frame, style: UITableViewStylePlain)
     @table.dataSource = self
     view.addSubview(@table)
   end
