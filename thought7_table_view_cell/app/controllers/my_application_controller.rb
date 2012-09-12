@@ -47,7 +47,7 @@ class MyApplicationController < UIViewController
       cell = UITableViewCell.alloc.initWithStyle( UITableViewCellStyleDefault,
                           reuseIdentifier: cell_identifier)
 
-      layout(cell, :cell) do
+      layout(cell.contentView, :cell) do
         icon_image_view = subview(UIImageView, :icon, tag: ICON_TAG)
         title_view = subview(UILabel, :title, tag: TITLE_TAG, font: UIFont.systemFontOfSize(17))
         description_view = subview(UILabel, :description, tag: DESCRIPTION_TAG, font: UIFont.systemFontOfSize(12))
