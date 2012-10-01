@@ -1,0 +1,1192 @@
+<?xml version='1.0'?>
+<signatures version='1.0'>
+<struct name='PLCrashReportFileHeader' type='{PLCrashReportFileHeader=&quot;magic&quot;[7c]&quot;version&quot;C&quot;data&quot;^C}'>
+<field const='true' name='magic' type='[7c]' declared_type='char*'/>
+<field const='true' name='version' type='C' declared_type='uint8_t'/>
+<field const='true' name='data' type='^C' declared_type='uint8_t*'/>
+</struct>
+<struct name='PLCrashReporterCallbacks' type='{PLCrashReporterCallbacks=&quot;version&quot;S&quot;context&quot;^v&quot;handleSignal&quot;^?}'>
+<field name='version' type='S' declared_type='uint16_t'/>
+<field name='context' type='^v' declared_type='void*'/>
+<field name='handleSignal' type='^?' function_pointer='true' declared_type='PLCrashReporterPostCrashSignalCallback'>
+<arg type='^{__siginfo=iiiiIi^v(sigval=i^v)l[7L]}' declared_type='siginfo_t*'/>
+<arg type='^{__darwin_ucontext=iI{__darwin_sigaltstack=^vIi}^{__darwin_ucontext}I^{__darwin_mcontext32}}' declared_type='ucontext_t*'/>
+<arg type='^v' declared_type='void*'/>
+<retval type='v' declared_type='void'/>
+</field>
+</struct>
+<struct name='PLProtobufCBinaryData' type='{PLProtobufCBinaryData=&quot;len&quot;I&quot;data&quot;^v}'>
+<field name='len' type='L' declared_type='size_t'/>
+<field name='data' type='^v' declared_type='void*'/>
+</struct>
+<struct name='plcrash_async_file' type='{plcrash_async_file=&quot;fd&quot;i&quot;limit_bytes&quot;q&quot;total_bytes&quot;q&quot;buflen&quot;I&quot;buffer&quot;[256c]}'>
+<field name='fd' type='i' declared_type='int'/>
+<field name='limit_bytes' type='q' declared_type='off_t'/>
+<field name='total_bytes' type='q' declared_type='off_t'/>
+<field name='buflen' type='L' declared_type='size_t'/>
+<field name='buffer' type='[256c]' declared_type='char*'/>
+</struct>
+<struct name='plcrash_async_file_t' type='{plcrash_async_file=&quot;fd&quot;i&quot;limit_bytes&quot;q&quot;total_bytes&quot;q&quot;buflen&quot;I&quot;buffer&quot;[256c]}'>
+<field name='fd' type='i' declared_type='int'/>
+<field name='limit_bytes' type='q' declared_type='off_t'/>
+<field name='total_bytes' type='q' declared_type='off_t'/>
+<field name='buflen' type='L' declared_type='size_t'/>
+<field name='buffer' type='[256c]' declared_type='char*'/>
+</struct>
+<struct name='plcrash_async_image' type='{plcrash_async_image=&quot;header&quot;I&quot;name&quot;*&quot;prev&quot;^{plcrash_async_image}&quot;next&quot;^{plcrash_async_image}}'>
+<field name='header' type='L' declared_type='uintptr_t'/>
+<field name='name' type='*' declared_type='char*'/>
+<field name='prev' type='^{plcrash_async_image=I*^{plcrash_async_image}^{plcrash_async_image}}' declared_type='struct plcrash_async_image*'/>
+<field name='next' type='^{plcrash_async_image=I*^{plcrash_async_image}^{plcrash_async_image}}' declared_type='struct plcrash_async_image*'/>
+</struct>
+<struct name='plcrash_async_image_list' type='{plcrash_async_image_list=&quot;write_lock&quot;i&quot;head&quot;^{plcrash_async_image}&quot;tail&quot;^{plcrash_async_image}&quot;refcount&quot;i&quot;free&quot;^{plcrash_async_image}}'>
+<field name='write_lock' type='i' declared_type='OSSpinLock'/>
+<field name='head' type='^{plcrash_async_image=I*^{plcrash_async_image}^{plcrash_async_image}}' declared_type='plcrash_async_image_t*'/>
+<field name='tail' type='^{plcrash_async_image=I*^{plcrash_async_image}^{plcrash_async_image}}' declared_type='plcrash_async_image_t*'/>
+<field name='refcount' type='i' declared_type='int32_t'/>
+<field name='free' type='^{plcrash_async_image=I*^{plcrash_async_image}^{plcrash_async_image}}' declared_type='plcrash_async_image_t*'/>
+</struct>
+<struct name='plcrash_async_image_list_t' type='{plcrash_async_image_list=&quot;write_lock&quot;i&quot;head&quot;^{plcrash_async_image}&quot;tail&quot;^{plcrash_async_image}&quot;refcount&quot;i&quot;free&quot;^{plcrash_async_image}}'>
+<field name='write_lock' type='i' declared_type='OSSpinLock'/>
+<field name='head' type='^{plcrash_async_image=I*^{plcrash_async_image}^{plcrash_async_image}}' declared_type='plcrash_async_image_t*'/>
+<field name='tail' type='^{plcrash_async_image=I*^{plcrash_async_image}^{plcrash_async_image}}' declared_type='plcrash_async_image_t*'/>
+<field name='refcount' type='i' declared_type='int32_t'/>
+<field name='free' type='^{plcrash_async_image=I*^{plcrash_async_image}^{plcrash_async_image}}' declared_type='plcrash_async_image_t*'/>
+</struct>
+<struct name='plcrash_async_image_t' type='{plcrash_async_image=&quot;header&quot;I&quot;name&quot;*&quot;prev&quot;^{plcrash_async_image}&quot;next&quot;^{plcrash_async_image}}'>
+<field name='header' type='L' declared_type='uintptr_t'/>
+<field name='name' type='*' declared_type='char*'/>
+<field name='prev' type='^{plcrash_async_image=I*^{plcrash_async_image}^{plcrash_async_image}}' declared_type='struct plcrash_async_image*'/>
+<field name='next' type='^{plcrash_async_image=I*^{plcrash_async_image}^{plcrash_async_image}}' declared_type='struct plcrash_async_image*'/>
+</struct>
+<struct name='plcrash_log_writer' type='{plcrash_log_writer=&quot;system_info&quot;{?=&quot;version&quot;*&quot;build&quot;*}&quot;machine_info&quot;{?=&quot;model&quot;*&quot;cpu_type&quot;Q&quot;cpu_subtype&quot;Q&quot;processor_count&quot;I&quot;logical_processor_count&quot;I}&quot;application_info&quot;{?=&quot;app_identifier&quot;*&quot;app_version&quot;*}&quot;process_info&quot;{?=&quot;process_name&quot;*&quot;process_id&quot;i&quot;process_path&quot;*&quot;parent_process_name&quot;*&quot;parent_process_id&quot;i&quot;native&quot;B}&quot;image_info&quot;{?=&quot;image_list&quot;{plcrash_async_image_list=&quot;write_lock&quot;i&quot;head&quot;^{plcrash_async_image}&quot;tail&quot;^{plcrash_async_image}&quot;refcount&quot;i&quot;free&quot;^{plcrash_async_image}}}&quot;uncaught_exception&quot;{?=&quot;has_exception&quot;B&quot;name&quot;*&quot;reason&quot;*&quot;callstack&quot;^^v&quot;callstack_count&quot;I}}'>
+<field name='system_info' type='{_structplcrash_log_writer=&quot;version&quot;*&quot;build&quot;*}' declared_type='struct plcrash_log_writer::'/>
+<field name='machine_info' type='{_structplcrash_log_writer=&quot;model&quot;*&quot;cpu_type&quot;Q&quot;cpu_subtype&quot;Q&quot;processor_count&quot;I&quot;logical_processor_count&quot;I}' declared_type='struct plcrash_log_writer::'/>
+<field name='application_info' type='{_structplcrash_log_writer=&quot;app_identifier&quot;*&quot;app_version&quot;*}' declared_type='struct plcrash_log_writer::'/>
+<field name='process_info' type='{_structplcrash_log_writer=&quot;process_name&quot;*&quot;process_id&quot;i&quot;process_path&quot;*&quot;parent_process_name&quot;*&quot;parent_process_id&quot;i&quot;native&quot;B}' declared_type='struct plcrash_log_writer::'/>
+<field name='image_info' type='{_structplcrash_log_writer=&quot;image_list&quot;{plcrash_async_image_list=&quot;write_lock&quot;i&quot;head&quot;^{plcrash_async_image}&quot;tail&quot;^{plcrash_async_image}&quot;refcount&quot;i&quot;free&quot;^{plcrash_async_image}}}' declared_type='struct plcrash_log_writer::'/>
+<field name='uncaught_exception' type='{_structplcrash_log_writer=&quot;has_exception&quot;B&quot;name&quot;*&quot;reason&quot;*&quot;callstack&quot;^^v&quot;callstack_count&quot;I}' declared_type='struct plcrash_log_writer::'/>
+</struct>
+<struct name='plcrash_log_writer_t' type='{plcrash_log_writer=&quot;system_info&quot;{?=&quot;version&quot;*&quot;build&quot;*}&quot;machine_info&quot;{?=&quot;model&quot;*&quot;cpu_type&quot;Q&quot;cpu_subtype&quot;Q&quot;processor_count&quot;I&quot;logical_processor_count&quot;I}&quot;application_info&quot;{?=&quot;app_identifier&quot;*&quot;app_version&quot;*}&quot;process_info&quot;{?=&quot;process_name&quot;*&quot;process_id&quot;i&quot;process_path&quot;*&quot;parent_process_name&quot;*&quot;parent_process_id&quot;i&quot;native&quot;B}&quot;image_info&quot;{?=&quot;image_list&quot;{plcrash_async_image_list=&quot;write_lock&quot;i&quot;head&quot;^{plcrash_async_image}&quot;tail&quot;^{plcrash_async_image}&quot;refcount&quot;i&quot;free&quot;^{plcrash_async_image}}}&quot;uncaught_exception&quot;{?=&quot;has_exception&quot;B&quot;name&quot;*&quot;reason&quot;*&quot;callstack&quot;^^v&quot;callstack_count&quot;I}}'>
+<field name='system_info' type='{_structplcrash_log_writer=&quot;version&quot;*&quot;build&quot;*}' declared_type='struct plcrash_log_writer::'/>
+<field name='machine_info' type='{_structplcrash_log_writer=&quot;model&quot;*&quot;cpu_type&quot;Q&quot;cpu_subtype&quot;Q&quot;processor_count&quot;I&quot;logical_processor_count&quot;I}' declared_type='struct plcrash_log_writer::'/>
+<field name='application_info' type='{_structplcrash_log_writer=&quot;app_identifier&quot;*&quot;app_version&quot;*}' declared_type='struct plcrash_log_writer::'/>
+<field name='process_info' type='{_structplcrash_log_writer=&quot;process_name&quot;*&quot;process_id&quot;i&quot;process_path&quot;*&quot;parent_process_name&quot;*&quot;parent_process_id&quot;i&quot;native&quot;B}' declared_type='struct plcrash_log_writer::'/>
+<field name='image_info' type='{_structplcrash_log_writer=&quot;image_list&quot;{plcrash_async_image_list=&quot;write_lock&quot;i&quot;head&quot;^{plcrash_async_image}&quot;tail&quot;^{plcrash_async_image}&quot;refcount&quot;i&quot;free&quot;^{plcrash_async_image}}}' declared_type='struct plcrash_log_writer::'/>
+<field name='uncaught_exception' type='{_structplcrash_log_writer=&quot;has_exception&quot;B&quot;name&quot;*&quot;reason&quot;*&quot;callstack&quot;^^v&quot;callstack_count&quot;I}' declared_type='struct plcrash_log_writer::'/>
+</struct>
+<struct name='plframe_cursor' type='{plframe_cursor=&quot;init_frame&quot;B&quot;uap&quot;^{__darwin_ucontext}&quot;fp&quot;[2^v]&quot;_uap_data&quot;{__darwin_ucontext=&quot;uc_onstack&quot;i&quot;uc_sigmask&quot;I&quot;uc_stack&quot;{__darwin_sigaltstack=&quot;ss_sp&quot;^v&quot;ss_size&quot;I&quot;ss_flags&quot;i}&quot;uc_link&quot;^{__darwin_ucontext}&quot;uc_mcsize&quot;I&quot;uc_mcontext&quot;^{__darwin_mcontext32}}&quot;_mcontext_data&quot;{__darwin_mcontext32=&quot;__es&quot;{__darwin_i386_exception_state=&quot;__trapno&quot;S&quot;__cpu&quot;S&quot;__err&quot;I&quot;__faultvaddr&quot;I}&quot;__ss&quot;{__darwin_i386_thread_state=&quot;__eax&quot;I&quot;__ebx&quot;I&quot;__ecx&quot;I&quot;__edx&quot;I&quot;__edi&quot;I&quot;__esi&quot;I&quot;__ebp&quot;I&quot;__esp&quot;I&quot;__ss&quot;I&quot;__eflags&quot;I&quot;__eip&quot;I&quot;__cs&quot;I&quot;__ds&quot;I&quot;__es&quot;I&quot;__fs&quot;I&quot;__gs&quot;I}&quot;__fs&quot;{__darwin_i386_float_state=&quot;__fpu_reserved&quot;[2i]&quot;__fpu_fcw&quot;{__darwin_fp_control=&quot;__invalid&quot;b1&quot;__denorm&quot;b1&quot;__zdiv&quot;b1&quot;__ovrfl&quot;b1&quot;__undfl&quot;b1&quot;__precis&quot;b1&quot;&quot;b2&quot;__pc&quot;b2&quot;__rc&quot;b2&quot;&quot;b1&quot;&quot;b3}&quot;__fpu_fsw&quot;{__darwin_fp_status=&quot;__invalid&quot;b1&quot;__denorm&quot;b1&quot;__zdiv&quot;b1&quot;__ovrfl&quot;b1&quot;__undfl&quot;b1&quot;__precis&quot;b1&quot;__stkflt&quot;b1&quot;__errsumm&quot;b1&quot;__c0&quot;b1&quot;__c1&quot;b1&quot;__c2&quot;b1&quot;__tos&quot;b3&quot;__c3&quot;b1&quot;__busy&quot;b1}&quot;__fpu_ftw&quot;C&quot;__fpu_rsrv1&quot;C&quot;__fpu_fop&quot;S&quot;__fpu_ip&quot;I&quot;__fpu_cs&quot;S&quot;__fpu_rsrv2&quot;S&quot;__fpu_dp&quot;I&quot;__fpu_ds&quot;S&quot;__fpu_rsrv3&quot;S&quot;__fpu_mxcsr&quot;I&quot;__fpu_mxcsrmask&quot;I&quot;__fpu_stmm0&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm1&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm2&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm3&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm4&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm5&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm6&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm7&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_xmm0&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm1&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm2&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm3&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm4&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm5&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm6&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm7&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_rsrv4&quot;[224c]&quot;__fpu_reserved1&quot;i}}}'>
+<field name='init_frame' type='B' declared_type='_Bool'/>
+<field name='uap' type='^{__darwin_ucontext=iI{__darwin_sigaltstack=^vIi}^{__darwin_ucontext}I^{__darwin_mcontext32}}' declared_type='ucontext_t*'/>
+<field name='fp' type='[2^v]' declared_type='void**'/>
+<field name='_uap_data' type='{__darwin_ucontext=&quot;uc_onstack&quot;i&quot;uc_sigmask&quot;I&quot;uc_stack&quot;{__darwin_sigaltstack=&quot;ss_sp&quot;^v&quot;ss_size&quot;I&quot;ss_flags&quot;i}&quot;uc_link&quot;^{__darwin_ucontext}&quot;uc_mcsize&quot;I&quot;uc_mcontext&quot;^{__darwin_mcontext32}}' declared_type='ucontext_t'/>
+<field name='_mcontext_data' type='{__darwin_mcontext32=&quot;__es&quot;{__darwin_i386_exception_state=&quot;__trapno&quot;S&quot;__cpu&quot;S&quot;__err&quot;I&quot;__faultvaddr&quot;I}&quot;__ss&quot;{__darwin_i386_thread_state=&quot;__eax&quot;I&quot;__ebx&quot;I&quot;__ecx&quot;I&quot;__edx&quot;I&quot;__edi&quot;I&quot;__esi&quot;I&quot;__ebp&quot;I&quot;__esp&quot;I&quot;__ss&quot;I&quot;__eflags&quot;I&quot;__eip&quot;I&quot;__cs&quot;I&quot;__ds&quot;I&quot;__es&quot;I&quot;__fs&quot;I&quot;__gs&quot;I}&quot;__fs&quot;{__darwin_i386_float_state=&quot;__fpu_reserved&quot;[2i]&quot;__fpu_fcw&quot;{__darwin_fp_control=&quot;__invalid&quot;b1&quot;__denorm&quot;b1&quot;__zdiv&quot;b1&quot;__ovrfl&quot;b1&quot;__undfl&quot;b1&quot;__precis&quot;b1&quot;&quot;b2&quot;__pc&quot;b2&quot;__rc&quot;b2&quot;&quot;b1&quot;&quot;b3}&quot;__fpu_fsw&quot;{__darwin_fp_status=&quot;__invalid&quot;b1&quot;__denorm&quot;b1&quot;__zdiv&quot;b1&quot;__ovrfl&quot;b1&quot;__undfl&quot;b1&quot;__precis&quot;b1&quot;__stkflt&quot;b1&quot;__errsumm&quot;b1&quot;__c0&quot;b1&quot;__c1&quot;b1&quot;__c2&quot;b1&quot;__tos&quot;b3&quot;__c3&quot;b1&quot;__busy&quot;b1}&quot;__fpu_ftw&quot;C&quot;__fpu_rsrv1&quot;C&quot;__fpu_fop&quot;S&quot;__fpu_ip&quot;I&quot;__fpu_cs&quot;S&quot;__fpu_rsrv2&quot;S&quot;__fpu_dp&quot;I&quot;__fpu_ds&quot;S&quot;__fpu_rsrv3&quot;S&quot;__fpu_mxcsr&quot;I&quot;__fpu_mxcsrmask&quot;I&quot;__fpu_stmm0&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm1&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm2&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm3&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm4&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm5&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm6&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm7&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_xmm0&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm1&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm2&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm3&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm4&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm5&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm6&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm7&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_rsrv4&quot;[224c]&quot;__fpu_reserved1&quot;i}}' declared_type='struct __darwin_mcontext32'/>
+</struct>
+<struct name='plframe_cursor_t' type='{plframe_cursor=&quot;init_frame&quot;B&quot;uap&quot;^{__darwin_ucontext}&quot;fp&quot;[2^v]&quot;_uap_data&quot;{__darwin_ucontext=&quot;uc_onstack&quot;i&quot;uc_sigmask&quot;I&quot;uc_stack&quot;{__darwin_sigaltstack=&quot;ss_sp&quot;^v&quot;ss_size&quot;I&quot;ss_flags&quot;i}&quot;uc_link&quot;^{__darwin_ucontext}&quot;uc_mcsize&quot;I&quot;uc_mcontext&quot;^{__darwin_mcontext32}}&quot;_mcontext_data&quot;{__darwin_mcontext32=&quot;__es&quot;{__darwin_i386_exception_state=&quot;__trapno&quot;S&quot;__cpu&quot;S&quot;__err&quot;I&quot;__faultvaddr&quot;I}&quot;__ss&quot;{__darwin_i386_thread_state=&quot;__eax&quot;I&quot;__ebx&quot;I&quot;__ecx&quot;I&quot;__edx&quot;I&quot;__edi&quot;I&quot;__esi&quot;I&quot;__ebp&quot;I&quot;__esp&quot;I&quot;__ss&quot;I&quot;__eflags&quot;I&quot;__eip&quot;I&quot;__cs&quot;I&quot;__ds&quot;I&quot;__es&quot;I&quot;__fs&quot;I&quot;__gs&quot;I}&quot;__fs&quot;{__darwin_i386_float_state=&quot;__fpu_reserved&quot;[2i]&quot;__fpu_fcw&quot;{__darwin_fp_control=&quot;__invalid&quot;b1&quot;__denorm&quot;b1&quot;__zdiv&quot;b1&quot;__ovrfl&quot;b1&quot;__undfl&quot;b1&quot;__precis&quot;b1&quot;&quot;b2&quot;__pc&quot;b2&quot;__rc&quot;b2&quot;&quot;b1&quot;&quot;b3}&quot;__fpu_fsw&quot;{__darwin_fp_status=&quot;__invalid&quot;b1&quot;__denorm&quot;b1&quot;__zdiv&quot;b1&quot;__ovrfl&quot;b1&quot;__undfl&quot;b1&quot;__precis&quot;b1&quot;__stkflt&quot;b1&quot;__errsumm&quot;b1&quot;__c0&quot;b1&quot;__c1&quot;b1&quot;__c2&quot;b1&quot;__tos&quot;b3&quot;__c3&quot;b1&quot;__busy&quot;b1}&quot;__fpu_ftw&quot;C&quot;__fpu_rsrv1&quot;C&quot;__fpu_fop&quot;S&quot;__fpu_ip&quot;I&quot;__fpu_cs&quot;S&quot;__fpu_rsrv2&quot;S&quot;__fpu_dp&quot;I&quot;__fpu_ds&quot;S&quot;__fpu_rsrv3&quot;S&quot;__fpu_mxcsr&quot;I&quot;__fpu_mxcsrmask&quot;I&quot;__fpu_stmm0&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm1&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm2&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm3&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm4&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm5&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm6&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm7&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_xmm0&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm1&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm2&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm3&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm4&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm5&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm6&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm7&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_rsrv4&quot;[224c]&quot;__fpu_reserved1&quot;i}}}'>
+<field name='init_frame' type='B' declared_type='_Bool'/>
+<field name='uap' type='^{__darwin_ucontext=iI{__darwin_sigaltstack=^vIi}^{__darwin_ucontext}I^{__darwin_mcontext32}}' declared_type='ucontext_t*'/>
+<field name='fp' type='[2^v]' declared_type='void**'/>
+<field name='_uap_data' type='{__darwin_ucontext=&quot;uc_onstack&quot;i&quot;uc_sigmask&quot;I&quot;uc_stack&quot;{__darwin_sigaltstack=&quot;ss_sp&quot;^v&quot;ss_size&quot;I&quot;ss_flags&quot;i}&quot;uc_link&quot;^{__darwin_ucontext}&quot;uc_mcsize&quot;I&quot;uc_mcontext&quot;^{__darwin_mcontext32}}' declared_type='ucontext_t'/>
+<field name='_mcontext_data' type='{__darwin_mcontext32=&quot;__es&quot;{__darwin_i386_exception_state=&quot;__trapno&quot;S&quot;__cpu&quot;S&quot;__err&quot;I&quot;__faultvaddr&quot;I}&quot;__ss&quot;{__darwin_i386_thread_state=&quot;__eax&quot;I&quot;__ebx&quot;I&quot;__ecx&quot;I&quot;__edx&quot;I&quot;__edi&quot;I&quot;__esi&quot;I&quot;__ebp&quot;I&quot;__esp&quot;I&quot;__ss&quot;I&quot;__eflags&quot;I&quot;__eip&quot;I&quot;__cs&quot;I&quot;__ds&quot;I&quot;__es&quot;I&quot;__fs&quot;I&quot;__gs&quot;I}&quot;__fs&quot;{__darwin_i386_float_state=&quot;__fpu_reserved&quot;[2i]&quot;__fpu_fcw&quot;{__darwin_fp_control=&quot;__invalid&quot;b1&quot;__denorm&quot;b1&quot;__zdiv&quot;b1&quot;__ovrfl&quot;b1&quot;__undfl&quot;b1&quot;__precis&quot;b1&quot;&quot;b2&quot;__pc&quot;b2&quot;__rc&quot;b2&quot;&quot;b1&quot;&quot;b3}&quot;__fpu_fsw&quot;{__darwin_fp_status=&quot;__invalid&quot;b1&quot;__denorm&quot;b1&quot;__zdiv&quot;b1&quot;__ovrfl&quot;b1&quot;__undfl&quot;b1&quot;__precis&quot;b1&quot;__stkflt&quot;b1&quot;__errsumm&quot;b1&quot;__c0&quot;b1&quot;__c1&quot;b1&quot;__c2&quot;b1&quot;__tos&quot;b3&quot;__c3&quot;b1&quot;__busy&quot;b1}&quot;__fpu_ftw&quot;C&quot;__fpu_rsrv1&quot;C&quot;__fpu_fop&quot;S&quot;__fpu_ip&quot;I&quot;__fpu_cs&quot;S&quot;__fpu_rsrv2&quot;S&quot;__fpu_dp&quot;I&quot;__fpu_ds&quot;S&quot;__fpu_rsrv3&quot;S&quot;__fpu_mxcsr&quot;I&quot;__fpu_mxcsrmask&quot;I&quot;__fpu_stmm0&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm1&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm2&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm3&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm4&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm5&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm6&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_stmm7&quot;{__darwin_mmst_reg=&quot;__mmst_reg&quot;[10c]&quot;__mmst_rsrv&quot;[6c]}&quot;__fpu_xmm0&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm1&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm2&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm3&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm4&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm5&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm6&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_xmm7&quot;{__darwin_xmm_reg=&quot;__xmm_reg&quot;[16c]}&quot;__fpu_rsrv4&quot;[224c]&quot;__fpu_reserved1&quot;i}}' declared_type='struct __darwin_mcontext32'/>
+</struct>
+<struct name='plframe_test_thead_t' type='{plframe_test_thread=&quot;thread&quot;^{_opaque_pthread_t}&quot;lock&quot;{_opaque_pthread_mutex_t=&quot;__sig&quot;l&quot;__opaque&quot;[40c]}&quot;cond&quot;{_opaque_pthread_cond_t=&quot;__sig&quot;l&quot;__opaque&quot;[24c]}}'>
+<field name='thread' type='^{_opaque_pthread_t=l^{__darwin_pthread_handler_rec}[596c]}' declared_type='pthread_t'/>
+<field name='lock' type='{_opaque_pthread_mutex_t=&quot;__sig&quot;l&quot;__opaque&quot;[40c]}' declared_type='pthread_mutex_t'/>
+<field name='cond' type='{_opaque_pthread_cond_t=&quot;__sig&quot;l&quot;__opaque&quot;[24c]}' declared_type='pthread_cond_t'/>
+</struct>
+<struct name='plframe_test_thread' type='{plframe_test_thread=&quot;thread&quot;^{_opaque_pthread_t}&quot;lock&quot;{_opaque_pthread_mutex_t=&quot;__sig&quot;l&quot;__opaque&quot;[40c]}&quot;cond&quot;{_opaque_pthread_cond_t=&quot;__sig&quot;l&quot;__opaque&quot;[24c]}}'>
+<field name='thread' type='^{_opaque_pthread_t=l^{__darwin_pthread_handler_rec}[596c]}' declared_type='pthread_t'/>
+<field name='lock' type='{_opaque_pthread_mutex_t=&quot;__sig&quot;l&quot;__opaque&quot;[40c]}' declared_type='pthread_mutex_t'/>
+<field name='cond' type='{_opaque_pthread_cond_t=&quot;__sig&quot;l&quot;__opaque&quot;[24c]}' declared_type='pthread_cond_t'/>
+</struct>
+<opaque name='CrittercismJKParseState' type='^{CrittercismJKParseState=}'/>
+<opaque name='_PLCrashReportDecoder' type='^{_PLCrashReportDecoder=}'/>
+<constant name='PLCrashReportHostArchitecture' type='i' declared_type='PLCrashReportArchitecture'/>
+<constant name='PLCrashReportHostOperatingSystem' type='i' declared_type='PLCrashReportOperatingSystem'/>
+<constant name='PLCrashReporterErrorDomain' type='@' declared_type='NSString*'/>
+<constant name='PLCrashReporterException' type='@' declared_type='NSString*'/>
+<string_constant name='PLCRASH_REPORT_FILE_MAGIC' value='plcrash'/>
+<string_constant nsstring='true' name='kCrittercismReachabilityChangedNotification' value='kNetworkCrittercismReachabilityChangedNotification'/>
+<enum name='CrittercismJKParseOptionComments' value='1'/>
+<enum name='CrittercismJKParseOptionLooseUnicode' value='4'/>
+<enum name='CrittercismJKParseOptionNone' value='0'/>
+<enum name='CrittercismJKParseOptionPermitTextAfterValidJSON' value='8'/>
+<enum name='CrittercismJKParseOptionStrict' value='0'/>
+<enum name='CrittercismJKParseOptionUnicodeNewlines' value='2'/>
+<enum name='CrittercismJKParseOptionValidFlags' value='15'/>
+<enum name='CrittercismJKSerializeOptionEscapeForwardSlashes' value='16'/>
+<enum name='CrittercismJKSerializeOptionEscapeUnicode' value='2'/>
+<enum name='CrittercismJKSerializeOptionNone' value='0'/>
+<enum name='CrittercismJKSerializeOptionPretty' value='1'/>
+<enum name='CrittercismJKSerializeOptionValidFlags' value='19'/>
+<enum name='CrittercismNotReachable' value='0'/>
+<enum name='CrittercismReachableViaWWAN' value='2'/>
+<enum name='CrittercismReachableViaWiFi' value='1'/>
+<enum name='JSONKIT_VERSION_MAJOR' value='1'/>
+<enum name='JSONKIT_VERSION_MINOR' value='4'/>
+<enum name='PLCRASH_EINTERNAL' value='6'/>
+<enum name='PLCRASH_EINVAL' value='5'/>
+<enum name='PLCRASH_ENOMEM' value='3'/>
+<enum name='PLCRASH_ENOTSUP' value='4'/>
+<enum name='PLCRASH_ESUCCESS' value='0'/>
+<enum name='PLCRASH_EUNKNOWN' value='1'/>
+<enum name='PLCRASH_OUTPUT_ERR' value='2'/>
+<enum name='PLCRASH_REPORT_FILE_VERSION' value='1'/>
+<enum name='PLCrashReportArchitectureARM' value='2'/>
+<enum name='PLCrashReportArchitectureARMv6' value='2'/>
+<enum name='PLCrashReportArchitectureARMv7' value='5'/>
+<enum name='PLCrashReportArchitecturePPC' value='3'/>
+<enum name='PLCrashReportArchitecturePPC64' value='4'/>
+<enum name='PLCrashReportArchitectureUnknown' value='6'/>
+<enum name='PLCrashReportArchitectureX86_32' value='0'/>
+<enum name='PLCrashReportArchitectureX86_64' value='1'/>
+<enum name='PLCrashReportOperatingSystemMacOSX' value='0'/>
+<enum name='PLCrashReportOperatingSystemUnknown' value='3'/>
+<enum name='PLCrashReportOperatingSystemiPhoneOS' value='1'/>
+<enum name='PLCrashReportOperatingSystemiPhoneSimulator' value='2'/>
+<enum name='PLCrashReportProcessorTypeEncodingMach' value='1'/>
+<enum name='PLCrashReportProcessorTypeEncodingUnknown' value='0'/>
+<enum name='PLCrashReportTextFormatiOS' value='0'/>
+<enum name='PLCrashReporterErrorCrashReportInvalid' value='2'/>
+<enum name='PLCrashReporterErrorOperatingSystem' value='1'/>
+<enum name='PLCrashReporterErrorUnknown' value='0'/>
+<enum name='PLFRAME_EBADFRAME' value='3'/>
+<enum name='PLFRAME_EBADREG' value='7'/>
+<enum name='PLFRAME_EINVAL' value='5'/>
+<enum name='PLFRAME_ENOFRAME' value='2'/>
+<enum name='PLFRAME_ENOTSUP' value='4'/>
+<enum name='PLFRAME_ESUCCESS' value='0'/>
+<enum name='PLFRAME_EUNKNOWN' value='1'/>
+<enum name='PLFRAME_INTERNAL' value='6'/>
+<enum name='PLFRAME_PDEF_LAST_REG' value='15'/>
+<enum name='PLFRAME_PDEF_REG_IP' value='8'/>
+<enum name='PLFRAME_PDEF_STACKFRAME_LEN' value='2'/>
+<enum name='PLFRAME_REG_IP' value='8'/>
+<enum name='PLFRAME_REG_LAST' value='15'/>
+<enum name='PLFRAME_STACKFRAME_LEN' value='2'/>
+<enum name='PLFRAME_X86_CS' value='11'/>
+<enum name='PLFRAME_X86_DS' value='12'/>
+<enum name='PLFRAME_X86_EAX' value='0'/>
+<enum name='PLFRAME_X86_EBP' value='4'/>
+<enum name='PLFRAME_X86_EBX' value='3'/>
+<enum name='PLFRAME_X86_ECX' value='2'/>
+<enum name='PLFRAME_X86_EDI' value='6'/>
+<enum name='PLFRAME_X86_EDX' value='1'/>
+<enum name='PLFRAME_X86_EFLAGS' value='9'/>
+<enum name='PLFRAME_X86_EIP' value='8'/>
+<enum name='PLFRAME_X86_ES' value='13'/>
+<enum name='PLFRAME_X86_ESI' value='5'/>
+<enum name='PLFRAME_X86_ESP' value='7'/>
+<enum name='PLFRAME_X86_FS' value='14'/>
+<enum name='PLFRAME_X86_GS' value='15'/>
+<enum name='PLFRAME_X86_TRAPNO' value='10'/>
+<enum name='PLPROTOBUF_C_TYPE_BOOL' value='12'/>
+<enum name='PLPROTOBUF_C_TYPE_BYTES' value='15'/>
+<enum name='PLPROTOBUF_C_TYPE_DOUBLE' value='11'/>
+<enum name='PLPROTOBUF_C_TYPE_ENUM' value='13'/>
+<enum name='PLPROTOBUF_C_TYPE_FIXED32' value='7'/>
+<enum name='PLPROTOBUF_C_TYPE_FIXED64' value='9'/>
+<enum name='PLPROTOBUF_C_TYPE_FLOAT' value='10'/>
+<enum name='PLPROTOBUF_C_TYPE_INT32' value='0'/>
+<enum name='PLPROTOBUF_C_TYPE_INT64' value='3'/>
+<enum name='PLPROTOBUF_C_TYPE_MESSAGE' value='16'/>
+<enum name='PLPROTOBUF_C_TYPE_SFIXED32' value='2'/>
+<enum name='PLPROTOBUF_C_TYPE_SFIXED64' value='5'/>
+<enum name='PLPROTOBUF_C_TYPE_SINT32' value='1'/>
+<enum name='PLPROTOBUF_C_TYPE_SINT64' value='4'/>
+<enum name='PLPROTOBUF_C_TYPE_STRING' value='14'/>
+<enum name='PLPROTOBUF_C_TYPE_UINT32' value='6'/>
+<enum name='PLPROTOBUF_C_TYPE_UINT64' value='8'/>
+<function name='plcrash_async_file_close'>
+<arg name='file' type='^{plcrash_async_file=iqqI[256c]}' declared_type='plcrash_async_file_t*'/>
+<retval type='B' declared_type='_Bool'/>
+</function>
+<function name='plcrash_async_file_flush'>
+<arg name='file' type='^{plcrash_async_file=iqqI[256c]}' declared_type='plcrash_async_file_t*'/>
+<retval type='B' declared_type='_Bool'/>
+</function>
+<function name='plcrash_async_file_init'>
+<arg name='file' type='^{plcrash_async_file=iqqI[256c]}' declared_type='plcrash_async_file_t*'/>
+<arg name='fd' type='i' declared_type='int'/>
+<arg name='output_limit' type='q' declared_type='off_t'/>
+<retval type='v' declared_type='void'/>
+</function>
+<function name='plcrash_async_file_write'>
+<arg name='file' type='^{plcrash_async_file=iqqI[256c]}' declared_type='plcrash_async_file_t*'/>
+<arg const='true' name='data' type='^v' declared_type='void*'/>
+<arg name='len' type='L' declared_type='size_t'/>
+<retval type='B' declared_type='_Bool'/>
+</function>
+<function name='plcrash_async_image_list_append'>
+<arg name='list' type='^{plcrash_async_image_list=i^{plcrash_async_image}^{plcrash_async_image}i^{plcrash_async_image}}' declared_type='plcrash_async_image_list_t*'/>
+<arg name='header' type='L' declared_type='uintptr_t'/>
+<arg const='true' name='name' type='*' declared_type='char*'/>
+<retval type='v' declared_type='void'/>
+</function>
+<function name='plcrash_async_image_list_free'>
+<arg name='list' type='^{plcrash_async_image_list=i^{plcrash_async_image}^{plcrash_async_image}i^{plcrash_async_image}}' declared_type='plcrash_async_image_list_t*'/>
+<retval type='v' declared_type='void'/>
+</function>
+<function name='plcrash_async_image_list_init'>
+<arg name='list' type='^{plcrash_async_image_list=i^{plcrash_async_image}^{plcrash_async_image}i^{plcrash_async_image}}' declared_type='plcrash_async_image_list_t*'/>
+<retval type='v' declared_type='void'/>
+</function>
+<function name='plcrash_async_image_list_next'>
+<arg name='list' type='^{plcrash_async_image_list=i^{plcrash_async_image}^{plcrash_async_image}i^{plcrash_async_image}}' declared_type='plcrash_async_image_list_t*'/>
+<arg name='current' type='^{plcrash_async_image=I*^{plcrash_async_image}^{plcrash_async_image}}' declared_type='plcrash_async_image_t*'/>
+<retval type='^{plcrash_async_image=I*^{plcrash_async_image}^{plcrash_async_image}}' declared_type='plcrash_async_image_t*'/>
+</function>
+<function name='plcrash_async_image_list_remove'>
+<arg name='list' type='^{plcrash_async_image_list=i^{plcrash_async_image}^{plcrash_async_image}i^{plcrash_async_image}}' declared_type='plcrash_async_image_list_t*'/>
+<arg name='header' type='L' declared_type='uintptr_t'/>
+<retval type='v' declared_type='void'/>
+</function>
+<function name='plcrash_async_image_list_set_reading'>
+<arg name='list' type='^{plcrash_async_image_list=i^{plcrash_async_image}^{plcrash_async_image}i^{plcrash_async_image}}' declared_type='plcrash_async_image_list_t*'/>
+<arg name='enable' type='B' declared_type='_Bool'/>
+<retval type='v' declared_type='void'/>
+</function>
+<function name='plcrash_async_memcpy'>
+<arg name='dest' type='^v' declared_type='void*'/>
+<arg const='true' name='source' type='^v' declared_type='void*'/>
+<arg name='n' type='L' declared_type='size_t'/>
+<retval type='^v' declared_type='void*'/>
+</function>
+<function name='plcrash_async_signal_sigcode'>
+<arg name='signal' type='i' declared_type='int'/>
+<arg name='si_code' type='i' declared_type='int'/>
+<retval const='true' type='*' declared_type='char*'/>
+</function>
+<function name='plcrash_async_signal_signame'>
+<arg name='signal' type='i' declared_type='int'/>
+<retval const='true' type='*' declared_type='char*'/>
+</function>
+<function name='plcrash_log_writer_add_image'>
+<arg name='writer' type='^{plcrash_log_writer={?=**}{?=*QQII}{?=**}{?=*i**iB}{?={plcrash_async_image_list=i^{plcrash_async_image}^{plcrash_async_image}i^{plcrash_async_image}}}{?=B**^^vI}}' declared_type='plcrash_log_writer_t*'/>
+<arg const='true' name='header_addr' type='^v' declared_type='void*'/>
+<retval type='v' declared_type='void'/>
+</function>
+<function name='plcrash_log_writer_close'>
+<arg name='writer' type='^{plcrash_log_writer={?=**}{?=*QQII}{?=**}{?=*i**iB}{?={plcrash_async_image_list=i^{plcrash_async_image}^{plcrash_async_image}i^{plcrash_async_image}}}{?=B**^^vI}}' declared_type='plcrash_log_writer_t*'/>
+<retval type='i' declared_type='plcrash_error_t'/>
+</function>
+<function name='plcrash_log_writer_free'>
+<arg name='writer' type='^{plcrash_log_writer={?=**}{?=*QQII}{?=**}{?=*i**iB}{?={plcrash_async_image_list=i^{plcrash_async_image}^{plcrash_async_image}i^{plcrash_async_image}}}{?=B**^^vI}}' declared_type='plcrash_log_writer_t*'/>
+<retval type='v' declared_type='void'/>
+</function>
+<function name='plcrash_log_writer_init'>
+<arg name='writer' type='^{plcrash_log_writer={?=**}{?=*QQII}{?=**}{?=*i**iB}{?={plcrash_async_image_list=i^{plcrash_async_image}^{plcrash_async_image}i^{plcrash_async_image}}}{?=B**^^vI}}' declared_type='plcrash_log_writer_t*'/>
+<arg name='app_identifier' type='@' declared_type='NSString*'/>
+<arg name='app_version' type='@' declared_type='NSString*'/>
+<retval type='i' declared_type='plcrash_error_t'/>
+</function>
+<function name='plcrash_log_writer_remove_image'>
+<arg name='writer' type='^{plcrash_log_writer={?=**}{?=*QQII}{?=**}{?=*i**iB}{?={plcrash_async_image_list=i^{plcrash_async_image}^{plcrash_async_image}i^{plcrash_async_image}}}{?=B**^^vI}}' declared_type='plcrash_log_writer_t*'/>
+<arg const='true' name='header_addr' type='^v' declared_type='void*'/>
+<retval type='v' declared_type='void'/>
+</function>
+<function name='plcrash_log_writer_set_exception'>
+<arg name='writer' type='^{plcrash_log_writer={?=**}{?=*QQII}{?=**}{?=*i**iB}{?={plcrash_async_image_list=i^{plcrash_async_image}^{plcrash_async_image}i^{plcrash_async_image}}}{?=B**^^vI}}' declared_type='plcrash_log_writer_t*'/>
+<arg name='exception' type='@' declared_type='NSException*'/>
+<retval type='v' declared_type='void'/>
+</function>
+<function name='plcrash_log_writer_write'>
+<arg name='writer' type='^{plcrash_log_writer={?=**}{?=*QQII}{?=**}{?=*i**iB}{?={plcrash_async_image_list=i^{plcrash_async_image}^{plcrash_async_image}i^{plcrash_async_image}}}{?=B**^^vI}}' declared_type='plcrash_log_writer_t*'/>
+<arg name='file' type='^{plcrash_async_file=iqqI[256c]}' declared_type='plcrash_async_file_t*'/>
+<arg name='siginfo' type='^{__siginfo=iiiiIi^v(sigval=i^v)l[7L]}' declared_type='siginfo_t*'/>
+<arg name='crashctx' type='^{__darwin_ucontext=iI{__darwin_sigaltstack=^vIi}^{__darwin_ucontext}I^{__darwin_mcontext32}}' declared_type='ucontext_t*'/>
+<retval type='i' declared_type='plcrash_error_t'/>
+</function>
+<function name='plcrash_strerror'>
+<arg name='error' type='i' declared_type='plcrash_error_t'/>
+<retval const='true' type='*' declared_type='char*'/>
+</function>
+<function name='plcrash_sysctl_int'>
+<arg const='true' name='name' type='*' declared_type='char*'/>
+<arg name='result' type='^i' declared_type='int*'/>
+<retval type='B' declared_type='_Bool'/>
+</function>
+<function name='plcrash_sysctl_string'>
+<arg const='true' name='name' type='*' declared_type='char*'/>
+<retval type='*' declared_type='char*'/>
+</function>
+<function name='plcrash_writer_pack'>
+<arg name='file' type='^{plcrash_async_file=iqqI[256c]}' declared_type='plcrash_async_file_t*'/>
+<arg name='field_id' type='I' declared_type='uint32_t'/>
+<arg name='field_type' type='i' declared_type='PLProtobufCType'/>
+<arg const='true' name='value' type='^v' declared_type='void*'/>
+<retval type='L' declared_type='size_t'/>
+</function>
+<function name='plframe_cursor_init'>
+<arg name='cursor' type='^{plframe_cursor=B^{__darwin_ucontext}[2^v]{__darwin_ucontext=iI{__darwin_sigaltstack=^vIi}^{__darwin_ucontext}I^{__darwin_mcontext32}}{__darwin_mcontext32={__darwin_i386_exception_state=SSII}{__darwin_i386_thread_state=IIIIIIIIIIIIIIII}{__darwin_i386_float_state=[2i]{__darwin_fp_control=b1b1b1b1b1b1b2b2b2b1b3}{__darwin_fp_status=b1b1b1b1b1b1b1b1b1b1b1b3b1b1}CCSISSISSII{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}[224c]i}}}' declared_type='plframe_cursor_t*'/>
+<arg name='uap' type='^{__darwin_ucontext=iI{__darwin_sigaltstack=^vIi}^{__darwin_ucontext}I^{__darwin_mcontext32}}' declared_type='ucontext_t*'/>
+<retval type='i' declared_type='plframe_error_t'/>
+</function>
+<function name='plframe_cursor_next'>
+<arg name='cursor' type='^{plframe_cursor=B^{__darwin_ucontext}[2^v]{__darwin_ucontext=iI{__darwin_sigaltstack=^vIi}^{__darwin_ucontext}I^{__darwin_mcontext32}}{__darwin_mcontext32={__darwin_i386_exception_state=SSII}{__darwin_i386_thread_state=IIIIIIIIIIIIIIII}{__darwin_i386_float_state=[2i]{__darwin_fp_control=b1b1b1b1b1b1b2b2b2b1b3}{__darwin_fp_status=b1b1b1b1b1b1b1b1b1b1b1b3b1b1}CCSISSISSII{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}[224c]i}}}' declared_type='plframe_cursor_t*'/>
+<retval type='i' declared_type='plframe_error_t'/>
+</function>
+<function name='plframe_cursor_thread_init'>
+<arg name='cursor' type='^{plframe_cursor=B^{__darwin_ucontext}[2^v]{__darwin_ucontext=iI{__darwin_sigaltstack=^vIi}^{__darwin_ucontext}I^{__darwin_mcontext32}}{__darwin_mcontext32={__darwin_i386_exception_state=SSII}{__darwin_i386_thread_state=IIIIIIIIIIIIIIII}{__darwin_i386_float_state=[2i]{__darwin_fp_control=b1b1b1b1b1b1b2b2b2b1b3}{__darwin_fp_status=b1b1b1b1b1b1b1b1b1b1b1b3b1b1}CCSISSISSII{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}[224c]i}}}' declared_type='plframe_cursor_t*'/>
+<arg name='thread' type='I' declared_type='thread_t'/>
+<retval type='i' declared_type='plframe_error_t'/>
+</function>
+<function name='plframe_get_freg'>
+<arg name='cursor' type='^{plframe_cursor=B^{__darwin_ucontext}[2^v]{__darwin_ucontext=iI{__darwin_sigaltstack=^vIi}^{__darwin_ucontext}I^{__darwin_mcontext32}}{__darwin_mcontext32={__darwin_i386_exception_state=SSII}{__darwin_i386_thread_state=IIIIIIIIIIIIIIII}{__darwin_i386_float_state=[2i]{__darwin_fp_control=b1b1b1b1b1b1b2b2b2b1b3}{__darwin_fp_status=b1b1b1b1b1b1b1b1b1b1b1b3b1b1}CCSISSISSII{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}[224c]i}}}' declared_type='plframe_cursor_t*'/>
+<arg name='regnum' type='i' declared_type='plframe_regnum_t'/>
+<arg name='fpreg' type='^I' declared_type='plframe_fpreg_t*'/>
+<retval type='i' declared_type='plframe_error_t'/>
+</function>
+<function name='plframe_get_reg'>
+<arg name='cursor' type='^{plframe_cursor=B^{__darwin_ucontext}[2^v]{__darwin_ucontext=iI{__darwin_sigaltstack=^vIi}^{__darwin_ucontext}I^{__darwin_mcontext32}}{__darwin_mcontext32={__darwin_i386_exception_state=SSII}{__darwin_i386_thread_state=IIIIIIIIIIIIIIII}{__darwin_i386_float_state=[2i]{__darwin_fp_control=b1b1b1b1b1b1b2b2b2b1b3}{__darwin_fp_status=b1b1b1b1b1b1b1b1b1b1b1b3b1b1}CCSISSISSII{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_mmst_reg=[10c][6c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}{__darwin_xmm_reg=[16c]}[224c]i}}}' declared_type='plframe_cursor_t*'/>
+<arg name='regnum' type='i' declared_type='plframe_regnum_t'/>
+<arg name='reg' type='^I' declared_type='plframe_greg_t*'/>
+<retval type='i' declared_type='plframe_error_t'/>
+</function>
+<function name='plframe_get_regname'>
+<arg name='regnum' type='i' declared_type='plframe_regnum_t'/>
+<retval const='true' type='*' declared_type='char*'/>
+</function>
+<function name='plframe_read_addr'>
+<arg const='true' name='source' type='^v' declared_type='void*'/>
+<arg name='dest' type='^v' declared_type='void*'/>
+<arg name='len' type='L' declared_type='size_t'/>
+<retval type='i' declared_type='kern_return_t'/>
+</function>
+<function name='plframe_strerror'>
+<arg name='error' type='i' declared_type='plframe_error_t'/>
+<retval const='true' type='*' declared_type='char*'/>
+</function>
+<function name='plframe_test_thread_spawn'>
+<arg name='args' type='^{plframe_test_thread=^{_opaque_pthread_t}{_opaque_pthread_mutex_t=l[40c]}{_opaque_pthread_cond_t=l[24c]}}' declared_type='plframe_test_thead_t*'/>
+<retval type='v' declared_type='void'/>
+</function>
+<function name='plframe_test_thread_stop'>
+<arg name='args' type='^{plframe_test_thread=^{_opaque_pthread_t}{_opaque_pthread_mutex_t=l[40c]}{_opaque_pthread_cond_t=l[24c]}}' declared_type='plframe_test_thead_t*'/>
+<retval type='v' declared_type='void'/>
+</function>
+<class name='Crittercism'>
+<method selector='addGradient:'>
+<arg name='_button' index='0' type='@' declared_type='UIButton*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='addVote'>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='addVote:'>
+<arg name='_eventName' index='0' type='@' declared_type='NSString*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='configurePushNotification:' class_method='true'>
+<arg name='deviceToken' index='0' type='@' declared_type='NSData*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='crittercismViewController'>
+<retval type='@' declared_type='CrittercismViewController*'/>
+</method>
+<method selector='delegate'>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='didCrashOnLastLoad'>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='feedbackArray'>
+<retval type='@' declared_type='NSArray*'/>
+</method>
+<method selector='getAppID' class_method='true'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='getCrittercism'>
+<retval type='@' declared_type='CrittercismViewController*'/>
+</method>
+<method selector='getCurrentOrientation' class_method='true'>
+<retval type='i' declared_type='int'/>
+</method>
+<method selector='getMainViewController'>
+<retval type='@' declared_type='UIViewController*'/>
+</method>
+<method selector='getNavTitle'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='getOptOutStatus' class_method='true'>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='getVotes'>
+<retval type='i' declared_type='int'/>
+</method>
+<method selector='hideCrittercism'>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='initWithAppID:' class_method='true'>
+<arg name='_app_id' index='0' type='@' declared_type='NSString*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='initWithAppID:andKey:andSecret:' class_method='true'>
+<arg name='_app_id' index='0' type='@' declared_type='NSString*'/>
+<arg name='_keyStr' index='1' type='@' declared_type='NSString*'/>
+<arg name='_secretStr' index='2' type='@' declared_type='NSString*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='initWithAppID:andKey:andSecret:andMainViewController:' class_method='true'>
+<arg name='_app_id' index='0' type='@' declared_type='NSString*'/>
+<arg name='_keyStr' index='1' type='@' declared_type='NSString*'/>
+<arg name='_secretStr' index='2' type='@' declared_type='NSString*'/>
+<arg name='_mainViewController' index='3' type='@' declared_type='UIViewController*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='initWithAppID:andMainViewController:' class_method='true'>
+<arg name='_app_id' index='0' type='@' declared_type='NSString*'/>
+<arg name='_mainViewController' index='1' type='@' declared_type='UIViewController*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='initWithAppID:andMainViewController:andDelegate:' class_method='true'>
+<arg name='_app_id' index='0' type='@' declared_type='NSString*'/>
+<arg name='_mainViewController' index='1' type='@' declared_type='UIViewController*'/>
+<arg name='critterDelegate' index='2' type='@' declared_type='id'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='leaveBreadcrumb:' class_method='true'>
+<arg name='breadcrumb' index='0' type='@' declared_type='NSString*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='logHandledException:' class_method='true'>
+<arg name='exception' index='0' type='@' declared_type='NSException*'/>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='setAge:' class_method='true'>
+<arg name='age' index='0' type='i' declared_type='int'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setCrittercismViewController:'>
+<arg name='crittercismViewController' index='0' type='@' declared_type='CrittercismViewController*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setCurrentOrientation:' class_method='true'>
+<arg name='_orientation' index='0' type='i' declared_type='int'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setDelegate:'>
+<arg name='delegate' index='0' type='@' declared_type='id'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setDidCrashOnLastLoad:'>
+<arg name='didCrashOnLastLoad' index='0' type='B' declared_type='BOOL'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setDisplayer:'>
+<arg name='_displayer' index='0' type='@' declared_type='NSObject*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setEmail:' class_method='true'>
+<arg name='email' index='0' type='@' declared_type='NSString*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setFeedbackArray:'>
+<arg name='feedbackArray' index='0' type='@' declared_type='NSArray*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setGender:' class_method='true'>
+<arg name='gender' index='0' type='@' declared_type='NSString*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setNavTitle:'>
+<arg name='_title' index='0' type='@' declared_type='NSString*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setOptOutStatus:' class_method='true'>
+<arg name='_optOutStatus' index='0' type='B' declared_type='BOOL'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setTintRed:green:blue:'>
+<arg name='_red' index='0' type='f' declared_type='float'/>
+<arg name='_green' index='1' type='f' declared_type='float'/>
+<arg name='_blue' index='2' type='f' declared_type='float'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setUsername:' class_method='true'>
+<arg name='username' index='0' type='@' declared_type='NSString*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setValue:forKey:' class_method='true'>
+<arg name='value' index='0' type='@' declared_type='NSString*'/>
+<arg name='key' index='1' type='@' declared_type='NSString*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setVoteDisplayer:'>
+<arg name='voteDisplayer' index='0' type='@' declared_type='NSObject*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setVotes:'>
+<arg name='_numVotes' index='0' type='i' declared_type='int'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='sharedInstance' class_method='true'>
+<retval type='@' declared_type='Crittercism*'/>
+</method>
+<method selector='showCrittercism' class_method='true'>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='showCrittercism:' class_method='true'>
+<arg name='_mainViewController' index='0' type='@' declared_type='UIViewController*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='updateVotes'>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='voteDisplayer'>
+<retval type='@' declared_type='NSObject*'/>
+</method>
+</class>
+<class name='CrittercismJSONDecoder'>
+<method selector='clearCache'>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='decoder' class_method='true'>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='decoderWithParseOptions:' class_method='true'>
+<arg name='parseOptionFlags' index='0' type='I' declared_type='CrittercismJKParseOptionFlags'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='initWithParseOptions:'>
+<arg name='parseOptionFlags' index='0' type='I' declared_type='CrittercismJKParseOptionFlags'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='mutableObjectWithData:'>
+<arg name='jsonData' index='0' type='@' declared_type='NSData*'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='mutableObjectWithData:error:'>
+<arg name='jsonData' index='0' type='@' declared_type='NSData*'/>
+<arg name='error' index='1' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='mutableObjectWithUTF8String:length:'>
+<arg const='true' name='string' index='0' type='*' declared_type='unsigned char*'/>
+<arg name='length' index='1' type='I' declared_type='NSUInteger'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='mutableObjectWithUTF8String:length:error:'>
+<arg const='true' name='string' index='0' type='*' declared_type='unsigned char*'/>
+<arg name='length' index='1' type='I' declared_type='NSUInteger'/>
+<arg name='error' index='2' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='objectWithData:'>
+<arg name='jsonData' index='0' type='@' declared_type='NSData*'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='objectWithData:error:'>
+<arg name='jsonData' index='0' type='@' declared_type='NSData*'/>
+<arg name='error' index='1' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='objectWithUTF8String:length:'>
+<arg const='true' name='string' index='0' type='*' declared_type='unsigned char*'/>
+<arg name='length' index='1' type='I' declared_type='NSUInteger'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='objectWithUTF8String:length:error:'>
+<arg const='true' name='string' index='0' type='*' declared_type='unsigned char*'/>
+<arg name='length' index='1' type='I' declared_type='NSUInteger'/>
+<arg name='error' index='2' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='parseJSONData:'>
+<arg name='jsonData' index='0' type='@' declared_type='NSData*'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='parseJSONData:error:'>
+<arg name='jsonData' index='0' type='@' declared_type='NSData*'/>
+<arg name='error' index='1' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='parseUTF8String:length:'>
+<arg const='true' name='string' index='0' type='*' declared_type='unsigned char*'/>
+<arg name='length' index='1' type='L' declared_type='size_t'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='parseUTF8String:length:error:'>
+<arg const='true' name='string' index='0' type='*' declared_type='unsigned char*'/>
+<arg name='length' index='1' type='L' declared_type='size_t'/>
+<arg name='error' index='2' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='id'/>
+</method>
+</class>
+<class name='CrittercismReachability'>
+<method selector='connectionRequired'>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='currentReachabilityStatus'>
+<retval type='i' declared_type='CrittercismNetworkStatus'/>
+</method>
+<method selector='reachabilityForInternetConnection' class_method='true'>
+<retval type='@' declared_type='CrittercismReachability*'/>
+</method>
+<method selector='reachabilityForLocalWiFi' class_method='true'>
+<retval type='@' declared_type='CrittercismReachability*'/>
+</method>
+<method selector='reachabilityWithAddress:' class_method='true'>
+<arg const='true' name='hostAddress' index='0' type='^{sockaddr_in=CCS{in_addr=I}[8c]}' declared_type='struct sockaddr_in*'/>
+<retval type='@' declared_type='CrittercismReachability*'/>
+</method>
+<method selector='reachabilityWithHostName:' class_method='true'>
+<arg name='hostName' index='0' type='@' declared_type='NSString*'/>
+<retval type='@' declared_type='CrittercismReachability*'/>
+</method>
+<method selector='startNotifier'>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='stopNotifier'>
+<retval type='v' declared_type='void'/>
+</method>
+</class>
+<class name='NSArray'>
+<method selector='CrittercismJSONData'>
+<retval type='@' declared_type='NSData*'/>
+</method>
+<method selector='CrittercismJSONDataWithOptions:error:'>
+<arg name='serializeOptions' index='0' type='I' declared_type='CrittercismJKSerializeOptionFlags'/>
+<arg name='error' index='1' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='NSData*'/>
+</method>
+<method selector='CrittercismJSONDataWithOptions:serializeUnsupportedClassesUsingBlock:error:'>
+<arg name='serializeOptions' index='0' type='I' declared_type='CrittercismJKSerializeOptionFlags'/>
+<arg name='block' index='1' type='@?' function_pointer='true' declared_type='id (^)(id)'>
+<arg type='@' declared_type='id'/>
+<retval type='@' declared_type='id'/>
+</arg>
+<arg name='error' index='2' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='NSData*'/>
+</method>
+<method selector='CrittercismJSONDataWithOptions:serializeUnsupportedClassesUsingDelegate:selector:error:'>
+<arg name='serializeOptions' index='0' type='I' declared_type='CrittercismJKSerializeOptionFlags'/>
+<arg name='delegate' index='1' type='@' declared_type='id'/>
+<arg name='selector' index='2' type=':' declared_type='SEL'/>
+<arg name='error' index='3' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='NSData*'/>
+</method>
+<method selector='CrittercismJSONString'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='CrittercismJSONStringWithOptions:error:'>
+<arg name='serializeOptions' index='0' type='I' declared_type='CrittercismJKSerializeOptionFlags'/>
+<arg name='error' index='1' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='CrittercismJSONStringWithOptions:serializeUnsupportedClassesUsingBlock:error:'>
+<arg name='serializeOptions' index='0' type='I' declared_type='CrittercismJKSerializeOptionFlags'/>
+<arg name='block' index='1' type='@?' function_pointer='true' declared_type='id (^)(id)'>
+<arg type='@' declared_type='id'/>
+<retval type='@' declared_type='id'/>
+</arg>
+<arg name='error' index='2' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='CrittercismJSONStringWithOptions:serializeUnsupportedClassesUsingDelegate:selector:error:'>
+<arg name='serializeOptions' index='0' type='I' declared_type='CrittercismJKSerializeOptionFlags'/>
+<arg name='delegate' index='1' type='@' declared_type='id'/>
+<arg name='selector' index='2' type=':' declared_type='SEL'/>
+<arg name='error' index='3' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='NSString*'/>
+</method>
+</class>
+<class name='NSData'>
+<method selector='mutableObjectFromJSONDataCrittercism'>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='mutableObjectFromJSONDataWithParseOptionsCrittercism:'>
+<arg name='parseOptionFlags' index='0' type='I' declared_type='CrittercismJKParseOptionFlags'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='mutableObjectFromJSONDataWithParseOptionsCrittercism:error:'>
+<arg name='parseOptionFlags' index='0' type='I' declared_type='CrittercismJKParseOptionFlags'/>
+<arg name='error' index='1' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='objectFromJSONDataCrittercism'>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='objectFromJSONDataWithParseOptionsCrittercism:'>
+<arg name='parseOptionFlags' index='0' type='I' declared_type='CrittercismJKParseOptionFlags'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='objectFromJSONDataWithParseOptionsCrittercism:error:'>
+<arg name='parseOptionFlags' index='0' type='I' declared_type='CrittercismJKParseOptionFlags'/>
+<arg name='error' index='1' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='id'/>
+</method>
+</class>
+<class name='NSDictionary'>
+<method selector='CrittercismJSONData'>
+<retval type='@' declared_type='NSData*'/>
+</method>
+<method selector='CrittercismJSONDataWithOptions:error:'>
+<arg name='serializeOptions' index='0' type='I' declared_type='CrittercismJKSerializeOptionFlags'/>
+<arg name='error' index='1' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='NSData*'/>
+</method>
+<method selector='CrittercismJSONDataWithOptions:serializeUnsupportedClassesUsingBlock:error:'>
+<arg name='serializeOptions' index='0' type='I' declared_type='CrittercismJKSerializeOptionFlags'/>
+<arg name='block' index='1' type='@?' function_pointer='true' declared_type='id (^)(id)'>
+<arg type='@' declared_type='id'/>
+<retval type='@' declared_type='id'/>
+</arg>
+<arg name='error' index='2' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='NSData*'/>
+</method>
+<method selector='CrittercismJSONDataWithOptions:serializeUnsupportedClassesUsingDelegate:selector:error:'>
+<arg name='serializeOptions' index='0' type='I' declared_type='CrittercismJKSerializeOptionFlags'/>
+<arg name='delegate' index='1' type='@' declared_type='id'/>
+<arg name='selector' index='2' type=':' declared_type='SEL'/>
+<arg name='error' index='3' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='NSData*'/>
+</method>
+<method selector='CrittercismJSONString'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='CrittercismJSONStringWithOptions:error:'>
+<arg name='serializeOptions' index='0' type='I' declared_type='CrittercismJKSerializeOptionFlags'/>
+<arg name='error' index='1' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='CrittercismJSONStringWithOptions:serializeUnsupportedClassesUsingBlock:error:'>
+<arg name='serializeOptions' index='0' type='I' declared_type='CrittercismJKSerializeOptionFlags'/>
+<arg name='block' index='1' type='@?' function_pointer='true' declared_type='id (^)(id)'>
+<arg type='@' declared_type='id'/>
+<retval type='@' declared_type='id'/>
+</arg>
+<arg name='error' index='2' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='CrittercismJSONStringWithOptions:serializeUnsupportedClassesUsingDelegate:selector:error:'>
+<arg name='serializeOptions' index='0' type='I' declared_type='CrittercismJKSerializeOptionFlags'/>
+<arg name='delegate' index='1' type='@' declared_type='id'/>
+<arg name='selector' index='2' type=':' declared_type='SEL'/>
+<arg name='error' index='3' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='NSString*'/>
+</method>
+</class>
+<class name='NSObject'>
+<method selector='crittercismDidClose'>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='crittercismDidCrashOnLastLoad'>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='formatReport:error:'>
+<arg name='report' index='0' type='@' declared_type='PLCrashReport*'/>
+<arg name='outError' index='1' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='NSData*'/>
+</method>
+</class>
+<class name='NSString'>
+<method selector='CrittercismJSONData'>
+<retval type='@' declared_type='NSData*'/>
+</method>
+<method selector='CrittercismJSONDataWithOptions:includeQuotes:error:'>
+<arg name='serializeOptions' index='0' type='I' declared_type='CrittercismJKSerializeOptionFlags'/>
+<arg name='includeQuotes' index='1' type='B' declared_type='BOOL'/>
+<arg name='error' index='2' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='NSData*'/>
+</method>
+<method selector='CrittercismJSONString'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='CrittercismJSONStringWithOptions:includeQuotes:error:'>
+<arg name='serializeOptions' index='0' type='I' declared_type='CrittercismJKSerializeOptionFlags'/>
+<arg name='includeQuotes' index='1' type='B' declared_type='BOOL'/>
+<arg name='error' index='2' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='mutableObjectFromJSONStringCrittercism'>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='mutableObjectFromJSONStringWithParseOptionsCrittercism:'>
+<arg name='parseOptionFlags' index='0' type='I' declared_type='CrittercismJKParseOptionFlags'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='mutableObjectFromJSONStringWithParseOptionsCrittercism:error:'>
+<arg name='parseOptionFlags' index='0' type='I' declared_type='CrittercismJKParseOptionFlags'/>
+<arg name='error' index='1' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='objectFromJSONStringCrittercism'>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='objectFromJSONStringWithParseOptionsCrittercism:'>
+<arg name='parseOptionFlags' index='0' type='I' declared_type='CrittercismJKParseOptionFlags'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='objectFromJSONStringWithParseOptionsCrittercism:error:'>
+<arg name='parseOptionFlags' index='0' type='I' declared_type='CrittercismJKParseOptionFlags'/>
+<arg name='error' index='1' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='id'/>
+</method>
+</class>
+<class name='PLCrashReport'>
+<method selector='applicationInfo'>
+<retval type='@' declared_type='PLCrashReportApplicationInfo*'/>
+</method>
+<method selector='exceptionInfo'>
+<retval type='@' declared_type='PLCrashReportExceptionInfo*'/>
+</method>
+<method selector='hasExceptionInfo'>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='hasMachineInfo'>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='hasProcessInfo'>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='imageForAddress:'>
+<arg name='address' index='0' type='Q' declared_type='uint64_t'/>
+<retval type='@' declared_type='PLCrashReportBinaryImageInfo*'/>
+</method>
+<method selector='images'>
+<retval type='@' declared_type='NSArray*'/>
+</method>
+<method selector='initWithData:error:'>
+<arg name='encodedData' index='0' type='@' declared_type='NSData*'/>
+<arg name='outError' index='1' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='machineInfo'>
+<retval type='@' declared_type='PLCrashReportMachineInfo*'/>
+</method>
+<method selector='processInfo'>
+<retval type='@' declared_type='PLCrashReportProcessInfo*'/>
+</method>
+<method selector='signalInfo'>
+<retval type='@' declared_type='PLCrashReportSignalInfo*'/>
+</method>
+<method selector='systemInfo'>
+<retval type='@' declared_type='PLCrashReportSystemInfo*'/>
+</method>
+<method selector='threads'>
+<retval type='@' declared_type='NSArray*'/>
+</method>
+</class>
+<class name='PLCrashReportApplicationInfo'>
+<method selector='applicationIdentifier'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='applicationVersion'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='initWithApplicationIdentifier:applicationVersion:'>
+<arg name='applicationIdentifier' index='0' type='@' declared_type='NSString*'/>
+<arg name='applicationVersion' index='1' type='@' declared_type='NSString*'/>
+<retval type='@' declared_type='id'/>
+</method>
+</class>
+<class name='PLCrashReportBinaryImageInfo'>
+<method selector='codeType'>
+<retval type='@' declared_type='PLCrashReportProcessorInfo*'/>
+</method>
+<method selector='hasImageUUID'>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='imageBaseAddress'>
+<retval type='Q' declared_type='uint64_t'/>
+</method>
+<method selector='imageName'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='imageSize'>
+<retval type='Q' declared_type='uint64_t'/>
+</method>
+<method selector='imageUUID'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='initWithCodeType:baseAddress:size:name:uuid:'>
+<arg name='processorInfo' index='0' type='@' declared_type='PLCrashReportProcessorInfo*'/>
+<arg name='baseAddress' index='1' type='Q' declared_type='uint64_t'/>
+<arg name='imageSize' index='2' type='Q' declared_type='uint64_t'/>
+<arg name='imageName' index='3' type='@' declared_type='NSString*'/>
+<arg name='uuid' index='4' type='@' declared_type='NSData*'/>
+<retval type='@' declared_type='id'/>
+</method>
+</class>
+<class name='PLCrashReportExceptionInfo'>
+<method selector='exceptionName'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='exceptionReason'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='initWithExceptionName:reason:'>
+<arg name='name' index='0' type='@' declared_type='NSString*'/>
+<arg name='reason' index='1' type='@' declared_type='NSString*'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='initWithExceptionName:reason:stackFrames:'>
+<arg name='name' index='0' type='@' declared_type='NSString*'/>
+<arg name='reason' index='1' type='@' declared_type='NSString*'/>
+<arg name='stackFrames' index='2' type='@' declared_type='NSArray*'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='stackFrames'>
+<retval type='@' declared_type='NSArray*'/>
+</method>
+</class>
+<class name='PLCrashReportMachineInfo'>
+<method selector='initWithModelName:processorInfo:processorCount:logicalProcessorCount:'>
+<arg name='modelName' index='0' type='@' declared_type='NSString*'/>
+<arg name='processorInfo' index='1' type='@' declared_type='PLCrashReportProcessorInfo*'/>
+<arg name='processorCount' index='2' type='I' declared_type='NSUInteger'/>
+<arg name='logicalProcessorCount' index='3' type='I' declared_type='NSUInteger'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='logicalProcessorCount'>
+<retval type='I' declared_type='NSUInteger'/>
+</method>
+<method selector='modelName'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='processorCount'>
+<retval type='I' declared_type='NSUInteger'/>
+</method>
+<method selector='processorInfo'>
+<retval type='@' declared_type='PLCrashReportProcessorInfo*'/>
+</method>
+</class>
+<class name='PLCrashReportProcessInfo'>
+<method selector='initWithProcessName:processID:processPath:parentProcessName:parentProcessID:native:'>
+<arg name='processName' index='0' type='@' declared_type='NSString*'/>
+<arg name='processID' index='1' type='I' declared_type='NSUInteger'/>
+<arg name='processPath' index='2' type='@' declared_type='NSString*'/>
+<arg name='parentProcessName' index='3' type='@' declared_type='NSString*'/>
+<arg name='parentProcessID' index='4' type='I' declared_type='NSUInteger'/>
+<arg name='native' index='5' type='B' declared_type='BOOL'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='native'>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='parentProcessID'>
+<retval type='I' declared_type='NSUInteger'/>
+</method>
+<method selector='parentProcessName'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='processID'>
+<retval type='I' declared_type='NSUInteger'/>
+</method>
+<method selector='processName'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='processPath'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+</class>
+<class name='PLCrashReportProcessorInfo'>
+<method selector='initWithTypeEncoding:type:subtype:'>
+<arg name='typeEncoding' index='0' type='i' declared_type='PLCrashReportProcessorTypeEncoding'/>
+<arg name='type' index='1' type='Q' declared_type='uint64_t'/>
+<arg name='subtype' index='2' type='Q' declared_type='uint64_t'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='subtype'>
+<retval type='Q' declared_type='uint64_t'/>
+</method>
+<method selector='type'>
+<retval type='Q' declared_type='uint64_t'/>
+</method>
+<method selector='typeEncoding'>
+<retval type='i' declared_type='PLCrashReportProcessorTypeEncoding'/>
+</method>
+</class>
+<class name='PLCrashReportRegisterInfo'>
+<method selector='initWithRegisterName:registerValue:'>
+<arg name='registerName' index='0' type='@' declared_type='NSString*'/>
+<arg name='registerValue' index='1' type='Q' declared_type='uint64_t'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='registerName'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='registerValue'>
+<retval type='Q' declared_type='uint64_t'/>
+</method>
+</class>
+<class name='PLCrashReportSignalInfo'>
+<method selector='address'>
+<retval type='Q' declared_type='uint64_t'/>
+</method>
+<method selector='code'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='initWithSignalName:code:address:'>
+<arg name='name' index='0' type='@' declared_type='NSString*'/>
+<arg name='code' index='1' type='@' declared_type='NSString*'/>
+<arg name='address' index='2' type='Q' declared_type='uint64_t'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='name'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+</class>
+<class name='PLCrashReportStackFrameInfo'>
+<method selector='fileName'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='initWithInstructionPointer:andFileName:andSymbolName:andSymbolAddress:'>
+<arg name='instructionPointer' index='0' type='Q' declared_type='uint64_t'/>
+<arg name='fileName' index='1' type='@' declared_type='NSString*'/>
+<arg name='symbolName' index='2' type='@' declared_type='NSString*'/>
+<arg name='symbolAddress' index='3' type='Q' declared_type='uint64_t'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='instructionPointer'>
+<retval type='Q' declared_type='uint64_t'/>
+</method>
+<method selector='symbolAddress'>
+<retval type='Q' declared_type='uint64_t'/>
+</method>
+<method selector='symbolName'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+</class>
+<class name='PLCrashReportSystemInfo'>
+<method selector='architecture'>
+<retval type='i' declared_type='PLCrashReportArchitecture'/>
+</method>
+<method selector='disk_space_free'>
+<retval type='I' declared_type='NSUInteger'/>
+</method>
+<method selector='initWithOperatingSystem:operatingSystemVersion:architecture:timestamp:memory_usage:disk_space_free:'>
+<arg name='operatingSystem' index='0' type='i' declared_type='PLCrashReportOperatingSystem'/>
+<arg name='operatingSystemVersion' index='1' type='@' declared_type='NSString*'/>
+<arg name='architecture' index='2' type='i' declared_type='PLCrashReportArchitecture'/>
+<arg name='timestamp' index='3' type='@' declared_type='NSDate*'/>
+<arg name='memory_usage' index='4' type='I' declared_type='NSUInteger'/>
+<arg name='disk_space_free' index='5' type='I' declared_type='NSUInteger'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='initWithOperatingSystem:operatingSystemVersion:operatingSystemBuild:architecture:timestamp:memory_usage:disk_space_free:'>
+<arg name='operatingSystem' index='0' type='i' declared_type='PLCrashReportOperatingSystem'/>
+<arg name='operatingSystemVersion' index='1' type='@' declared_type='NSString*'/>
+<arg name='operatingSystemBuild' index='2' type='@' declared_type='NSString*'/>
+<arg name='architecture' index='3' type='i' declared_type='PLCrashReportArchitecture'/>
+<arg name='timestamp' index='4' type='@' declared_type='NSDate*'/>
+<arg name='memory_usage' index='5' type='I' declared_type='NSUInteger'/>
+<arg name='disk_space_free' index='6' type='I' declared_type='NSUInteger'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='memory_usage'>
+<retval type='I' declared_type='NSUInteger'/>
+</method>
+<method selector='operatingSystem'>
+<retval type='i' declared_type='PLCrashReportOperatingSystem'/>
+</method>
+<method selector='operatingSystemBuild'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='operatingSystemVersion'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='timestamp'>
+<retval type='@' declared_type='NSDate*'/>
+</method>
+</class>
+<class name='PLCrashReportTextFormatter'>
+<method selector='initWithTextFormat:stringEncoding:'>
+<arg name='textFormat' index='0' type='i' declared_type='PLCrashReportTextFormat'/>
+<arg name='stringEncoding' index='1' type='I' declared_type='NSStringEncoding'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='stringValueForCrashReport:withTextFormat:' class_method='true'>
+<arg name='report' index='0' type='@' declared_type='PLCrashReport*'/>
+<arg name='textFormat' index='1' type='i' declared_type='PLCrashReportTextFormat'/>
+<retval type='@' declared_type='NSString*'/>
+</method>
+</class>
+<class name='PLCrashReportThreadInfo'>
+<method selector='crashed'>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='initWithThreadNumber:stackFrames:crashed:registers:'>
+<arg name='threadNumber' index='0' type='i' declared_type='NSInteger'/>
+<arg name='stackFrames' index='1' type='@' declared_type='NSArray*'/>
+<arg name='crashed' index='2' type='B' declared_type='BOOL'/>
+<arg name='registers' index='3' type='@' declared_type='NSArray*'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='registers'>
+<retval type='@' declared_type='NSArray*'/>
+</method>
+<method selector='stackFrames'>
+<retval type='@' declared_type='NSArray*'/>
+</method>
+<method selector='threadNumber'>
+<retval type='i' declared_type='NSInteger'/>
+</method>
+</class>
+<class name='PLCrashReporter'>
+<method selector='enableCrashReporter'>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='enableCrashReporterAndReturnError:'>
+<arg name='outError' index='0' type='^@' declared_type='NSError**'/>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='hasPendingCrashReport'>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='loadPendingCrashReportData'>
+<retval type='@' declared_type='NSData*'/>
+</method>
+<method selector='loadPendingCrashReportDataAndReturnError:'>
+<arg name='outError' index='0' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='NSData*'/>
+</method>
+<method selector='purgePendingCrashReport'>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='purgePendingCrashReportAndReturnError:'>
+<arg name='outError' index='0' type='^@' declared_type='NSError**'/>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='setCrashCallbacks:'>
+<arg name='callbacks' index='0' type='^{PLCrashReporterCallbacks=S^v^?}' declared_type='PLCrashReporterCallbacks*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='sharedReporter' class_method='true'>
+<retval type='@' declared_type='PLCrashReporter*'/>
+</method>
+</class>
+<class name='PLCrashSignalHandler'>
+<method selector='registerHandlerWithCallback:context:error:'>
+<arg name='crashCallback' index='0' type='^?' function_pointer='true' declared_type='PLCrashSignalHandlerCallback'>
+<arg type='i' declared_type='int'/>
+<arg type='^{__siginfo=iiiiIi^v(sigval=i^v)l[7L]}' declared_type='siginfo_t*'/>
+<arg type='^{__darwin_ucontext=iI{__darwin_sigaltstack=^vIi}^{__darwin_ucontext}I^{__darwin_mcontext32}}' declared_type='ucontext_t*'/>
+<arg type='^v' declared_type='void*'/>
+<retval type='v' declared_type='void'/>
+</arg>
+<arg name='context' index='1' type='^v' declared_type='void*'/>
+<arg name='outError' index='2' type='^@' declared_type='NSError**'/>
+<retval type='B' declared_type='BOOL'/>
+</method>
+<method selector='sharedHandler' class_method='true'>
+<retval type='@' declared_type='PLCrashSignalHandler*'/>
+</method>
+</class>
+<informal_protocol name='CrittercismDelegate'>
+<method selector='crittercismDidClose' type='v8@0:4'>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='crittercismDidCrashOnLastLoad' type='v8@0:4'>
+<retval type='v' declared_type='void'/>
+</method>
+</informal_protocol>
+<informal_protocol name='PLCrashReportFormatter'>
+<method selector='formatReport:error:' type='@16@0:4@8^@12'>
+<arg name='report' index='0' type='@' declared_type='PLCrashReport*'/>
+<arg name='outError' index='1' type='^@' declared_type='NSError**'/>
+<retval type='@' declared_type='NSData*'/>
+</method>
+</informal_protocol>
+</signatures>

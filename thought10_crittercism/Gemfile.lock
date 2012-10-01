@@ -1,0 +1,14 @@
+PATH
+  remote: /Users/colinta/Code/rubymotion/sugarcube
+  specs:
+    sugarcube (0.9.3)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  sugarcube!
